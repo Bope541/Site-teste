@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciar Afiliados</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        .select-coupons {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--color-dark-bg);
+            border: 1px solid var(--color-dark-border);
+            border-radius: 8px;
+            color: var(--color-white);
+            font-size: 1rem;
+            height: 150px;
+        }
+        .select-coupons option { padding: 5px; }
+    </style>
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin"><img src="/logo.png" alt="Logo Invict" class="logo-img"></a>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item"><a href="/admin"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="/admin/products"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    <li class="nav-item"><a href="/admin/coupons"><i class="fas fa-tags"></i><span>Cupons</span></a></li>
+                    
+                    <li class="nav-item active"><a href="/admin/affiliates"><i class="fas fa-users"></i><span>Afiliados</span></a></li>
+                    
+                    <li class="nav-item nav-divider">
+                        <span>Painel Staff</span>
+                    </li>
+                    <li class="nav-item"><a href="/admin/withdrawals"><i class="fas fa-hand-holding-usd"></i><span>Gerenciar Saques</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width"><i class="fas fa-arrow-left"></i> Voltar ao Site</a>
+            </div>
+        </aside>
+
+        <div class="admin-main-content">
+            <header class="admin-header">
+                <h1>Gerenciar Afiliados</h1>
+                <div class="new-nav-actions" id="nav-auth-container"></div>
+            </header>
+
+            <main class="admin-page-content">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Todos os Afiliados</h3>
+                        <button class="btn btn-primary" id="btn-new-affiliate"><i class="fas fa-plus"></i> Novo Afiliado</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Usuário</th>
+                                    <th>Status</th>
+                                    <th>Saldo (R$)</th>
+                                    <th>Total Ganho (R$)</th>
+                                    <th>Cupons</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="affiliates-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="affiliate-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Novo Afiliado</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <form id="affiliate-form">
+                <input type="hidden" id="affiliateId" name="affiliateId">
+
+                <h4 class="form-section-title">Informações do Usuário</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="username">Nome de Usuário no Site (Exato)</label>
+                        <input type="text" id="username" name="username" placeholder="UsernameDoUsuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Nome Completo (para Admin)</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="discordId">ID do Discord (Opcional)</label>
+                    <input type="text" id="discordId" name="discordId">
+                </div>
+
+                <hr class="form-divider">
+                <h4 class="form-section-title">Redes Sociais (Opcional)</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input type="text" id="social-twitter" placeholder="Link do Twitter/X">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="social-youtube" placeholder="Link do YouTube">
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+                <h4 class="form-section-title">Configurações de Afiliado</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="commissionRate">Taxa de Comissão (%)</label>
+                        <input type="number" id="commissionRate" name="commissionRate" value="25" step="1" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="status">Status da Conta</label>
+                        <select id="status" name="status">
+                            <option value="active">Ativo</option>
+                            <option value="inactive">Inativo</option>
+                            <option value="banned">Banido</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="linkedCoupons">Cupons Vinculados (Segure Ctrl/Cmd para selecionar vários)</label>
+                    <select id="linkedCoupons" name="linkedCoupons" class="select-coupons" multiple>
+                        </select>
+                </div>
+                
+                <hr class="form-divider">
+                <h4 class="form-section-title">Dados de Pagamento (PIX)</h4>
+                <div class="form-group">
+                    <label for="payment-accountHolderName">Nome Completo do Titular (PIX)</label>
+                    <input type="text" id="payment-accountHolderName" placeholder="Nome igual ao da conta bancária" required>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="payment-pixKeyType">Tipo de Chave PIX</label>
+                        <select id="payment-pixKeyType" required>
+                            <option value="">Selecione...</option>
+                            <option value="cpf_cnpj">CPF/CNPJ</option>
+                            <option value="email">Email</option>
+                            <option value="telefone">Telefone</option>
+                            <option value="aleatoria">Chave Aleatória</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-pixKey">Chave PIX</label>
+                        <input type="text" id="payment-pixKey" placeholder="A chave correspondente ao tipo" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-affiliate">Salvar Afiliado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-affiliates.js"></script> 
+</body>
+</html>

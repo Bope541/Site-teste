@@ -1,0 +1,309 @@
+/* --- Estilos da Seção de Detalhe do Produto --- */
+
+.product-detail-section {
+    padding: 60px 0;
+    background-color: var(--color-dark-bg);
+    min-height: 80vh;
+}
+
+/* --- Link de Voltar --- */
+.back-to-store {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
+}
+
+.back-to-store:hover {
+    color: var(--color-green-primary);
+}
+
+/* --- Layout Principal (Grid) --- */
+.product-layout {
+    display: grid;
+    /* Divide em 2 colunas, a da esquerda (galeria) é um pouco maior */
+    grid-template-columns: 6fr 4fr; 
+    gap: 40px;
+}
+
+/* --- Coluna da Esquerda (Galeria) --- */
+.product-gallery {
+    width: 100%;
+}
+
+.main-image-wrapper {
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--color-dark-border);
+    background-color: var(--color-dark-surface);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px; /* Adiciona espaço para as thumbnails */
+}
+
+.main-product-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3; /* Proporção 4:3 para a imagem */
+    object-fit: cover;
+    display: block;
+}
+
+/* Badge (Tag "Indetectável") */
+.product-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Coloquei à esquerda para diferenciar da loja */
+    background-color: rgba(0, 255, 136, 0.8); /* Nosso verde */
+    color: var(--color-dark-bg);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    backdrop-filter: blur(5px);
+}
+
+/* --- Estilos das Setas da Galeria --- */
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(10, 10, 11, 0.5);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(2px);
+    z-index: 10;
+}
+.gallery-arrow:hover {
+    background-color: rgba(0, 255, 136, 0.8);
+    color: var(--color-dark-bg);
+}
+.gallery-arrow.left { left: 15px; }
+.gallery-arrow.right { right: 15px; }
+
+/* --- Galeria de Thumbnails --- */
+.thumbnail-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 thumbnails (pode ajustar) */
+    gap: 10px;
+}
+
+.thumb-item {
+    border: 2px solid var(--color-dark-border);
+    background-color: var(--color-dark-surface);
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Thumbnails quadrados */
+    object-fit: cover;
+    display: block;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.thumb-item:hover img,
+.thumb-item.active img {
+    opacity: 1;
+}
+
+.thumb-item.active {
+    border-color: var(--color-green-primary); /* Borda verde no item ativo */
+}
+
+/* --- Coluna da Direita (Infos) --- */
+.product-info {
+    width: 100%;
+    padding-top: 10px; /* Alinhamento visual */
+}
+
+.product-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 15px;
+}
+
+.product-meta-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: var(--color-gray-text);
+    margin-bottom: 25px;
+}
+
+.product-meta-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Estrela verde */
+.product-meta-info .fa-star {
+    color: var(--color-green-primary);
+}
+/* Raio verde */
+.product-meta-info .fa-bolt {
+    color: var(--color-green-primary);
+}
+
+/* Seletor de Plano */
+.plan-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.plan-tab {
+    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--color-dark-border);
+    background-color: var(--color-dark-surface);
+    color: var(--color-gray-text);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.plan-tab:hover {
+    background-color: #222;
+    color: var(--color-white);
+}
+/* Tab ativa (com nossa cor verde) */
+.plan-tab.active {
+    background-color: rgba(0, 255, 136, 0.1);
+    color: var(--color-green-primary);
+    border-color: var(--color-green-primary);
+}
+
+/* Preço */
+.price-display {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-green-primary); /* Preço em verde */
+    margin-bottom: 25px;
+}
+
+/* Botões de Ação */
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 botões lado a lado */
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* --- Estilos de Métodos de Pagamento --- */
+.payment-methods {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-dark-border);
+}
+.payment-title {
+    font-size: 0.9rem;
+    color: var(--color-gray-text);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+}
+.payment-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 2.2rem;
+    color: var(--color-gray-text);
+}
+/* Cores das marcas */
+.payment-icons .fa-pix { color: #32BCAD; }
+.payment-icons .fa-credit-card { color: #0070e0; }
+.payment-icons .fa-paypal { color: #009cde; }
+
+
+/* Detalhes do Produto */
+.product-description {
+    margin-top: 25px;
+}
+
+.product-description h3 {
+    font-size: 1.2rem;
+    color: var(--color-white);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+
+.details-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.details-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+
+.details-list li span:first-child {
+    color: var(--color-gray-text); /* "Plataforma" */
+}
+.details-list li span:last-child {
+    color: var(--color-white); /* "Windows 10/11" */
+    font-weight: 500;
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .product-layout {
+        /* Empilha as colunas */
+        grid-template-columns: 1fr;
+    }
+    .product-info {
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-title {
+        font-size: 1.8rem;
+    }
+    .price-display {
+        font-size: 2rem;
+    }
+    .action-buttons {
+        /* Empilha os botões */
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail-gallery {
+        /* 4 colunas de thumb para telas pequenas */
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .plan-tab {
+        /* Botões de plano ocupam 100% */
+        width: 100%;
+    }
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Registrar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-page">
+
+    <header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="/faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </div>
+
+        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-links">
+                </nav>
+            
+            <div class="mobile-nav-actions" id="mobile-nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-card">
+            <h2 data-key="register_title">Bem-vindo à <span class="highlight">Invict</span></h2>
+            <p class="auth-subtitle" data-key="register_subtitle">Digite suas informações para <a href="/register">Registrar</a></p>
+            
+            <p id="auth-error-msg" class="auth-error" style="display:none;"></p>
+
+            <form action="/register" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="username" data-key="register_username">NOME DE USUÁRIO</label>
+                    <input type="text" id="username" name="username" placeholder="unknownuser" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" data-key="register_email">E-MAIL</label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" data-key="register_password">SENHA</label>
+                    <input type="password" id="password" name="password" placeholder="********" required>
+                    <i class="fas fa-eye password-toggle-icon" id="togglePassword"></i>
+                </div>
+                
+                <div class="password-requirements" id="password-req-register">
+                    <p data-key="register_req_title">Sua senha deve conter:</p>
+                    <ul>
+                        <li id="req-length" class="invalid"><i class="fas fa-times-circle"></i> <span data-key="register_req_length">Pelo menos 8 caracteres</span></li>
+                        <li id="req-upper" class="invalid"><i class="fas fa-times-circle"></i> <span data-key="register_req_upper">Pelo menos 1 letra maiúscula (A–Z)</span></li>
+                        <li id="req-lower" class="invalid"><i class="fas fa-times-circle"></i> <span data-key="register_req_lower">Pelo menos 1 letra minúscula (a–z)</span></li>
+                        <li id="req-number" class="invalid"><i class="fas fa-times-circle"></i> <span data-key="register_req_number">Pelo menos 1 número (0–9)</span></li>
+                        <li id="req-symbol" class="invalid"><i class="fas fa-times-circle"></i> <span data-key="register_req_symbol">Pelo menos 1 símbolo especial (ex: @, #, $, !)</span></li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width" data-key="register_continue">Continuar</button>
+            </form>
+            
+            <div class="auth-divider" data-key="form_or">OU</div>
+
+            <a href="/auth/discord" class="btn btn-discord full-width">
+                <i class="fab fa-discord"></i>
+                <span data-key="register_discord">Registrar com Discord</span>
+            </a>
+
+            <div class="auth-switch-link">
+                <span data-key="register_already_account">Ja tem uma conta?</span>
+                <a href="/login" data-key="register_login_now">Faça Login</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+            <a href="/" class="footer-bottom-link" data-key="footer_start">Começar</a>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordInput = document.getElementById('password');
+            const requirements = {
+                length: document.getElementById('req-length'),
+                upper: document.getElementById('req-upper'),
+                lower: document.getElementById('req-lower'),
+                number: document.getElementById('req-number'),
+                symbol: document.getElementById('req-symbol')
+            };
+            const form = document.querySelector('.auth-form');
+            let isPasswordStrong = false;
+
+            const validators = {
+                length: val => val.length >= 8,
+                upper: val => /[A-Z]/.test(val),
+                lower: val => /[a-z]/.test(val),
+                number: val => /[0-9]/.test(val),
+                symbol: val => /[^A-Za-z0-9]/.test(val) // Qualquer coisa que não seja letra ou número
+            };
+
+            function updateRequirement(li, isValid) {
+                const icon = li.querySelector('i');
+                if (isValid) {
+                    li.classList.remove('invalid');
+                    li.classList.add('valid');
+                    icon.classList.remove('fa-times-circle');
+                    icon.classList.add('fa-check-circle');
+                } else {
+                    li.classList.remove('valid');
+                    li.classList.add('invalid');
+                    icon.classList.remove('fa-check-circle');
+                    icon.classList.add('fa-times-circle');
+                }
+            }
+
+            function validatePassword() {
+                const password = passwordInput.value;
+                let allValid = true;
+                
+                for (const [key, validator] of Object.entries(validators)) {
+                    const isValid = validator(password);
+                    updateRequirement(requirements[key], isValid);
+                    if (!isValid) allValid = false;
+                }
+                isPasswordStrong = allValid;
+                return allValid;
+            }
+
+            if (passwordInput) {
+                passwordInput.addEventListener('input', validatePassword);
+                
+                // Validação no submit (cliente-side)
+                form.addEventListener('submit', (e) => {
+                    if (!isPasswordStrong) {
+                        e.preventDefault(); // Para a submissão
+                        const errorElement = document.getElementById('auth-error-msg');
+                        const lang = localStorage.getItem('language') || 'pt';
+                        // Adiciona uma nova chave de tradução se não existir
+                        if (translations[lang] && !translations[lang]["Sua senha não atende a todos os requisitos."]) {
+                             translations[lang]["Sua senha não atende a todos os requisitos."] = (lang === 'pt') ? "Sua senha não atende a todos os requisitos." : "Your password does not meet all requirements.";
+                        }
+                        errorElement.textContent = translations[lang]["Sua senha não atende a todos os requisitos."];
+                        errorElement.style.display = 'block';
+                        window.scrollTo(0, 0); // Rola para o topo para ver o erro
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

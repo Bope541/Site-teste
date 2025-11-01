@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciar Produtos</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin"><img src="/logo.png" alt="Logo Invict" class="logo-img"></a>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item"><a href="/admin"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item active"><a href="/admin/products"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    <li class="nav-item"><a href="/admin/coupons"><i class="fas fa-tags"></i><span>Cupons</span></a></li>
+                    <li class="nav-item"><a href="/admin/affiliates"><i class="fas fa-users"></i><span>Afiliados</span></a></li>
+                    <li class="nav-item"><a href="#"><i class="fas fa-shield-alt"></i><span>Painel Staff</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width"><i class="fas fa-arrow-left"></i> Voltar ao Site</a>
+            </div>
+        </aside>
+
+        <div class="admin-main-content">
+            <header class="admin-header">
+                <h1>Gerenciar Produtos</h1>
+                <div class="new-nav-actions" id="nav-auth-container"></div>
+            </header>
+
+            <main class="admin-page-content">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Todos os Produtos</h3>
+                        <button class="btn btn-primary" id="btn-new-product"><i class="fas fa-plus"></i> Criar Novo Produto</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Planos</th>
+                                    <th>Keys (Estoque)</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Criar Novo Produto</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <form id="product-form">
+                <input type="hidden" id="productId" name="productId">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Nome do Produto</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select id="category" name="category" required>
+                            <option value="">Carregando categorias...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="image-urls-container">
+                    <label>URLs de Imagem (a 1ª é a principal)</label>
+                    </div>
+                <button type="button" class="btn btn-secondary" id="btn-add-image"><i class="fas fa-plus"></i> Adicionar URL de Imagem</button>
+
+                <hr class="form-divider">
+
+                <div class="form-group">
+                    <label for="description">Descrição (HTML permitido)</label>
+                    <textarea id="description" name="description" rows="5"></textarea>
+                </div>
+
+                <hr class="form-divider">
+
+                <div class="form-group">
+                    <label>Planos de Preço</label>
+                    <div class="plans-grid">
+                        <div class="plan-group">
+                            <input type="checkbox" id="plan-active-semana" data-plan-name="1 Semana">
+                            <label for="plan-active-semana">1 Semana</label>
+                            <input type="number" id="plan-price-semana" placeholder="Preço (ex: 29.99)" step="0.01" disabled>
+                        </div>
+                        <div class="plan-group">
+                            <input type="checkbox" id="plan-active-mes" data-plan-name="1 Mês">
+                            <label for="plan-active-mes">1 Mês</label>
+                            <input type="number" id="plan-price-mes" placeholder="Preço (ex: 89.99)" step="0.01" disabled>
+                        </div>
+                        <div class="plan-group">
+                            <input type="checkbox" id="plan-active-trimestre" data-plan-name="3 Meses">
+                            <label for="plan-active-trimestre">3 Meses</label>
+                            <input type="number" id="plan-price-trimestre" placeholder="Preço (ex: 229.99)" step="0.01" disabled>
+                        </div>
+                        <div class="plan-group">
+                            <input type="checkbox" id="plan-active-vitalicio" data-plan-name="Vitalicio">
+                            <label for="plan-active-vitalicio">Vitalicio</label>
+                            <input type="number" id="plan-price-vitalicio" placeholder="Preço (ex: 499.99)" step="0.01" disabled>
+                        </div>
+                    </div>
+                </div>
+                <hr class="form-divider">
+
+                <div class="form-group">
+                    <label for="keys">Estoque de Keys (uma por linha)</label>
+                    <textarea id="keys" name="keys" rows="5" placeholder="KEY123-ABC...&#10;KEY456-DEF..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-product">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-products.js"></script> 
+</body>
+</html>

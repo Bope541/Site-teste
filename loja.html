@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Loja</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="store.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="/faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </div>
+
+        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-links">
+                </nav>
+            
+            <div class="mobile-nav-actions" id="mobile-nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="store-section">
+            <div class="container">
+
+                <div class="store-header">
+                    <h2 data-key="store_title">Nossa <span class="highlight">Loja</span></h2>
+                    <p class="store-subtitle" data-key="store_subtitle">
+                        Descubra nossa coleção de produtos feitos para elevar seu nível.
+                    </p>
+                    <div class="store-info-bar">
+                        <span class="info-item" data-key="store_info_delivery">
+                            <i class="fas fa-bolt"></i> Entrega Automática
+                        </span>
+                        <span class="info-item" data-key="store_info_support">
+                            <i class="fas fa-headset"></i> Suporte 24/7
+                        </span>
+                    </div>
+                </div>
+
+                <div class="store-layout">
+                    
+                    <aside class="store-sidebar">
+                        <div class="sidebar-widget sidebar-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="product-search" placeholder="Pesquisar produtos..." data-placeholder-key="store_search">
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3 class="sidebar-title" data-key="store_categories">Categorias</h3>
+                            <div class="category-list" id="category-list">
+                                <a href="#" class="category-item active" data-category="all">
+                                    <span data-key="cat_all">Todas as Categorias</span>
+                                    <span class="category-count" id="count-all">0</span>
+                                </a>
+                                </div>
+                        </div>
+                        </aside>
+
+                    <main class="store-main-content">
+                        <div class="store-results-header">
+                            <span class="results-count" id="results-count">... <span data-key="store_results">produtos encontrados</span></span>
+                        </div>
+                        
+                        <div class="product-grid" id="product-grid">
+                            <div class="loading-placeholder">Carregando produtos...</div>
+                        </div>
+
+                    </main>
+                </div> 
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productGrid = document.getElementById('product-grid');
+            const resultsCount = document.getElementById('results-count');
+            const searchInput = document.getElementById('product-search');
+            const categoryList = document.getElementById('category-list');
+            
+            let allProducts = []; // Guarda todos os produtos
+            let allCategories = []; // Guarda todas as categorias
+
+            /**
+             * 1. Renderiza os produtos no grid
+             */
+            const renderProducts = (productsToRender) => {
+                productGrid.innerHTML = ''; 
+
+                if (productsToRender.length === 0) {
+                    productGrid.innerHTML = '<p>Nenhum produto encontrado.</p>';
+                    resultsCount.innerHTML = `0 <span data-key="store_results">produtos encontrados</span>`;
+                    translatePage();
+                    return;
+                }
+                
+                resultsCount.innerHTML = `${productsToRender.length} <span data-key="store_results">produtos encontrados</span>`;
+
+                productsToRender.forEach(product => {
+                    const productCard = document.createElement('a');
+                    productCard.href = `produto.html?slug=${product.slug}`; 
+                    productCard.className = 'product-card';
+
+                    const prices = product.plans.map(p => p.price);
+                    const minPrice = Math.min(...prices);
+                    const maxPrice = Math.max(...prices);
+                    const priceRange = prices.length > 1 
+                        ? `R$${minPrice.toFixed(2)} - R$${maxPrice.toFixed(2)}`
+                        : `R$${minPrice.toFixed(2)}`;
+
+                    const imageUrl = (product.imageUrls && product.imageUrls.length > 0) 
+                                   ? product.imageUrls[0] 
+                                   : 'https://via.placeholder.com/300x180?text=Sem+Imagem';
+
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${imageUrl}" alt="Imagem de ${product.name}">
+                            ${product.isDetectado ? '<span class="product-badge" data-key="prod_badge">Indetectável</span>' : ''}
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-rating"><i class="fas fa-star"></i> ${product.rating.toFixed(1)}</div>
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label" data-key="prod_platform">Plataforma</span>
+                                    <span class="meta-value">Windows</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label" data-key="prod_delivery">Entrega</span>
+                                    <span class="meta-value" data-key="prod_delivery_auto">Automática</span>
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <span>${priceRange}</span>
+                            </div>
+                        </div>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+                
+                translatePage(); 
+            };
+            
+            /**
+             * 2. (NOVO) Constói a lista de categorias na sidebar
+             */
+            const renderCategories = () => {
+                const categoryCounts = {};
+                
+                // Calcula a contagem de produtos para cada categoria
+                allCategories.forEach(cat => {
+                    categoryCounts[cat._id] = 0; // Inicializa
+                });
+                allProducts.forEach(prod => {
+                    // prod.category é um objeto populado { _id: "...", name: "...", slug: "..." }
+                    if (prod.category && categoryCounts[prod.category._id] !== undefined) {
+                        categoryCounts[prod.category._id]++;
+                    }
+                });
+
+                // Atualiza o contador "Todas as Categorias"
+                document.getElementById('count-all').textContent = allProducts.length;
+
+                // Cria os links das categorias
+                allCategories.forEach(cat => {
+                    const count = categoryCounts[cat._id] || 0;
+                    if (count > 0) { // Só mostra categorias que têm produtos
+                        const catLink = document.createElement('a');
+                        catLink.href = '#';
+                        catLink.className = 'category-item';
+                        catLink.dataset.category = cat.slug; // Filtra pelo slug
+                        catLink.innerHTML = `
+                            <span>${cat.name}</span>
+                            <span class="category-count">${count}</span>
+                        `;
+                        // Adiciona o listener de filtro
+                        catLink.addEventListener('click', (e) => handleFilter(e, cat.slug));
+                        categoryList.appendChild(catLink);
+                    }
+                });
+            };
+
+            /**
+             * 3. (NOVO) Função principal de filtro
+             */
+            const handleFilter = (e, categorySlug = 'all') => {
+                if(e) e.preventDefault();
+                
+                // Atualiza o 'active' visual
+                categoryList.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.category === categorySlug) {
+                        item.classList.add('active');
+                    }
+                });
+
+                // Filtra os produtos
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                const filteredProducts = allProducts.filter(product => {
+                    // product.category é um objeto populado { _id: "...", name: "...", slug: "..." }
+                    const matchesCategory = (categorySlug === 'all') || (product.category && product.category.slug === categorySlug);
+                    const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                    return matchesCategory && matchesSearch;
+                });
+                
+                renderProducts(filteredProducts);
+            };
+
+            /**
+             * 4. (MODIFICADO) Carrega tudo (Produtos E Categorias)
+             */
+            const loadStore = async () => {
+                try {
+                    // Busca produtos e categorias em paralelo
+                    const [productsRes, categoriesRes] = await Promise.all([
+                        fetch('/api/products'), // API de produtos (já popula a categoria)
+                        fetch('/api/public/categories') // API pública de categorias
+                    ]);
+
+                    if (!productsRes.ok || !categoriesRes.ok) {
+                        throw new Error('Falha ao buscar dados da loja');
+                    }
+                    
+                    allProducts = await productsRes.json();
+                    allCategories = await categoriesRes.json();
+                    
+                    // Renderiza tudo
+                    renderCategories(); // 1º Renderiza a sidebar
+                    renderProducts(allProducts); // 2º Renderiza todos os produtos
+
+                    // Adiciona listeners aos filtros
+                    searchInput.addEventListener('input', (e) => {
+                        // Pega o slug da categoria que está ATIVA NO MOMENTO
+                        const activeCategorySlug = categoryList.querySelector('.category-item.active').dataset.category || 'all';
+                        handleFilter(e, activeCategorySlug);
+                    });
+                    categoryList.querySelector('[data-category="all"]').addEventListener('click', (e) => handleFilter(e, 'all'));
+
+                } catch (error) {
+                    console.error('Erro ao carregar loja:', error);
+                    productGrid.innerHTML = '<p>Erro ao carregar produtos. Tente novamente mais tarde.</p>';
+                }
+            };
+
+            // --- INICIALIZAÇÃO ---
+            loadStore();
+        });
+    </script>
+    </body>
+</html>

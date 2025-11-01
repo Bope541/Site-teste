@@ -1,0 +1,341 @@
+/* --- Estilos da Seção de Checkout --- */
+.checkout-section {
+    padding: 60px 0;
+    background-color: var(--color-dark-bg);
+    min-height: 80vh;
+}
+
+/* --- Link de Voltar --- */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--color-green-primary);
+}
+
+/* --- Layout Principal (Grid) --- */
+.checkout-layout {
+    display: grid;
+    /* Coluna da esquerda (formulário) é mais larga */
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+/* Colunas do Layout */
+.checkout-form,
+.checkout-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os cards */
+}
+
+/* --- Card de Checkout Genérico --- */
+.checkout-card {
+    background-color: var(--color-dark-surface);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: var(--color-white);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+/* Ícones do título em verde */
+.card-title i {
+    color: var(--color-green-primary);
+    font-size: 1.1rem;
+}
+
+/* --- Formulário de Cobrança (Usa estilos de style.css) --- */
+/* Os estilos .form-group e .form-group input vêm de style.css */
+
+/* --- Seletor de Pagamento --- */
+.payment-method-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-tab {
+    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--color-dark-border);
+    background-color: var(--color-dark-bg);
+    color: var(--color-gray-text);
+    padding: 18px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between; /* (NOVO) Para alinhar o selo à direita */
+}
+
+.payment-tab:hover {
+    background-color: #222;
+    color: var(--color-white);
+}
+
+.payment-tab.active {
+    background-color: rgba(0, 255, 136, 0.1);
+    color: var(--color-green-primary);
+    border-color: var(--color-green-primary);
+}
+
+.payment-tab i {
+    font-size: 1.2rem;
+}
+
+/* (NOVO) Selo de "Em Desenvolvimento" */
+.payment-tab .dev-badge {
+    background-color: #f0b90b; /* Amarelo */
+    color: var(--color-dark-bg);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+/* (NOVO) Estilo da Aba Desabilitada */
+.payment-tab.payment-tab-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--color-dark-bg);
+    color: var(--color-gray-text);
+    border-color: var(--color-dark-border);
+}
+
+.payment-tab.payment-tab-disabled:hover {
+    background-color: var(--color-dark-bg);
+    color: var(--color-gray-text);
+}
+
+
+/* --- Checkbox de Termos --- */
+.terms-card {
+    padding: 20px; /* Card de termos é mais sutil */
+    background-color: transparent;
+    border: none;
+}
+
+.terms-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+
+.terms-check input[type="checkbox"] {
+    margin-top: 5px;
+    flex-shrink: 0;
+    /* Estiliza o checkbox com nossa cor verde */
+    accent-color: var(--color-green-primary);
+}
+
+.terms-check label {
+    font-size: 0.9rem;
+    color: var(--color-gray-text);
+    line-height: 1.5;
+}
+
+.terms-check label a {
+    color: var(--color-green-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-check label a:hover {
+    text-decoration: underline;
+}
+
+/* --- Barra Lateral (Resumo) --- */
+.summary-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+
+.summary-product img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--color-dark-border);
+}
+
+.summary-product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-product-info .title {
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.summary-product-info .plan {
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
+}
+
+.summary-pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.summary-line span:first-child {
+    color: var(--color-gray-text);
+}
+
+.summary-line span:last-child {
+    color: var(--color-white);
+    font-weight: 600;
+}
+
+.summary-line.total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.summary-line.total span:first-child {
+    color: var(--color-white);
+}
+/* Preço total em verde */
+.summary-line.total span:last-child {
+    color: var(--color-green-primary);
+    font-size: 1.4rem;
+}
+
+.btn.full-width {
+    width: 100%;
+}
+
+.secure-note {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-gray-text);
+    margin-top: 15px;
+}
+
+.secure-note i {
+    color: var(--color-green-primary);
+    margin-right: 5px;
+}
+
+/* --- Formulário de Cupom (Antigo, agora parte do .coupon-form) --- */
+/* O .coupon-form está definido abaixo */
+
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .checkout-layout {
+        /* Empilha as colunas */
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .checkout-card {
+        padding: 25px;
+    }
+
+    .summary-line.total span:last-child {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-card {
+        padding: 20px;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+    .coupon-form {
+        flex-direction: column;
+    }
+}
+
+/* --- (NOVO) Estilos do Cupom --- */
+.coupon-form {
+    display: flex;
+    gap: 10px;
+}
+
+.coupon-form input {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.coupon-form input:focus {
+    border-color: var(--color-green-primary);
+    outline: none;
+}
+
+.coupon-form .btn {
+    flex-shrink: 0; /* Impede que o botão encolha */
+}
+
+.coupon-message {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.coupon-message.error {
+    color: #ff6b6b; /* Vermelho erro */
+}
+
+.coupon-message.success {
+    color: var(--color-green-primary); /* Verde sucesso */
+}
+
+/* --- (NOVO) Estilo da Linha de Desconto --- */
+.summary-line.discount span:first-child {
+    color: var(--color-gray-text);
+}
+
+.summary-line.discount span:last-child {
+    color: #ff6b6b; /* Desconto em vermelho */
+    font-weight: 600;
+}

@@ -1,0 +1,179 @@
+/* --- Configurações da Página FAQ --- */
+.faq-main {
+    padding: 60px 0;
+    background-color: var(--color-dark-bg);
+    min-height: 80vh;
+}
+
+.faq-main h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.faq-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-gray-text);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* --- Container do Acordeão --- */
+.accordion-container {
+    max-width: 800px; /* Limita a largura para melhor leitura */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaço entre os itens */
+}
+
+/* --- (NOVO) Animação de Carregamento Stagger --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.accordion-item {
+    background-color: var(--color-dark-surface);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 12px;
+    overflow: hidden; /* Importante para a animação de altura */
+    transition: background-color 0.3s ease;
+    
+    /* Configuração inicial para a animação de carregamento */
+    opacity: 0; /* Começa invisível */
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: both; /* Mantém o estado final da animação */
+}
+
+.accordion-item:hover {
+    background-color: #222; /* Um leve destaque no hover */
+    border-color: var(--color-dark-border);
+}
+
+/* --- Cabeçalho (Botão Clicável) --- */
+.accordion-header {
+    display: flex;
+    align-items: center; /* Alinha ícones e texto verticalmente */
+    width: 100%;
+    padding: 25px 30px;
+    
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-white);
+    text-align: left;
+    
+    transition: color 0.3s ease;
+}
+
+/* (NOVO) Ícone de Categoria */
+.accordion-header .icon {
+    color: var(--color-green-primary);
+    font-size: 1rem;
+    margin-right: 15px;
+    width: 20px; /* Largura fixa para alinhamento */
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+/* Título */
+.accordion-header span {
+    flex-grow: 1; /* Empurra a seta para a direita */
+}
+
+/* Seta (Chevron) */
+.accordion-header .arrow {
+    font-size: 1rem;
+    color: var(--color-gray-text);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; /* Animação da seta */
+}
+
+/* --- Conteúdo (Que abre e fecha) --- */
+/* (ATUALIZADO) O wrapper de 'max-height' */
+.accordion-content {
+    max-height: 0; /* Começa fechado */
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* A ANIMAÇÃO de deslize */
+    
+    /* O padding foi movido para o 'inner' */
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* (NOVO) Wrapper de 'fade-in' */
+.accordion-content-inner {
+    padding: 0 30px 25px 30px; /* Padding real do conteúdo */
+    
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s; /* Animação de fade (atrasada) */
+    
+    border-top: 1px solid var(--color-dark-border);
+    margin: 0 30px; /* Faz a linha do border-top não tocar as bordas */
+    padding-top: 25px; /* Espaço acima da linha */
+}
+
+
+/* Estiliza as listas dentro do conteúdo */
+.accordion-content-inner ol,
+.accordion-content-inner ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+.accordion-content-inner li {
+    margin-bottom: 12px;
+}
+.accordion-content-inner ul li {
+    list-style-type: disc;
+}
+.accordion-content-inner strong {
+    color: var(--color-green-primary); /* Destaque verde para <strong> */
+    font-weight: 600;
+}
+/* Estilo para termos de "risco/banimento" */
+.accordion-content-inner li strong:first-child {
+    color: #ff6b6b; /* Vermelho para a primeira ênfase de risco */
+}
+/* Re-corrige os que são positivos */
+.accordion-content-inner strong[data-positive="true"] {
+    color: var(--color-green-primary) !important;
+}
+
+
+/* --- ESTADO ATIVO (Quando clicado) --- */
+.accordion-item.active .accordion-header {
+    color: var(--color-green-primary);
+}
+
+.accordion-item.active .accordion-header .icon {
+    color: var(--color-white);
+}
+
+.accordion-item.active .accordion-header .arrow {
+    transform: rotate(180deg); /* Gira a seta */
+    color: var(--color-green-primary);
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 1000px; /* Define uma altura máxima grande para abrir (aumentado para o novo conteúdo) */
+}
+
+/* (NOVO) Ativa a animação de fade-in do conteúdo interno */
+.accordion-item.active .accordion-content-inner {
+    opacity: 1;
+    transform: translateY(0);
+}

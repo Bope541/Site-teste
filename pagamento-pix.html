@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Pagar com PIX</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/pix-payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="new-navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                </a>
+            </div>
+            <div class="new-nav-actions" id="nav-auth-container">
+            </div>
+        </div>
+    </header>
+
+    <main class="pix-main">
+        <div class="pix-card" id="pix-card">
+            
+            <div id="loading-state" class="pix-state">
+                <div class="loader"></div> <h2>Gerando seu PIX...</h2>
+                <p>Aguarde um momento, estamos preparando seu pagamento.</p>
+            </div>
+
+            <div id="payment-state" class="pix-state" style="display: none;">
+                <h2>Pague com PIX para continuar</h2>
+                <p>Aponte a câmera do seu celular ou copie o código abaixo.</p>
+
+                <div class="pix-timer">
+                    <i class="fas fa-clock"></i>
+                    Este PIX expira em: <span id="pix-timer-display">20:00</span>
+                </div>
+
+                <div class="qr-code-wrapper">
+                    <img id="qr-code-image" src="" alt="QR Code PIX">
+                </div>
+
+                <div class="copy-paste-wrapper">
+                    <label for="pix-copy-paste">PIX Copia e Cola</label>
+                    <div class="input-group">
+                        <input type="text" id="pix-copy-paste" readonly>
+                        <button id="copy-button" class="btn btn-secondary"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="payment-summary">
+                    <span id="product-info"></span>
+                    <span id="payment-amount"></span>
+                </div>
+
+                <div class="waiting-payment">
+                    <div class="loader"></div> Aguardando confirmação do pagamento...
+                </div>
+            </div>
+
+            <div id="success-state" class="pix-state" style="display: none;">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Pagamento Aprovado!</h2>
+                <p>Seu pagamento foi confirmado. Você será redirecionado em breve.</p>
+                <a href="/" class="btn btn-primary">Voltar ao Início</a>
+            </div>
+
+            <div id="error-state" class="pix-state" style="display: none;">
+                <i class="fas fa-times-circle error-icon"></i>
+                <h2>Erro ao carregar pedido</h2>
+                <p id="error-message">Não foi possível carregar os detalhes do seu pedido. Tente recarregar a página.</p>
+                <a href="/loja.html" class="btn btn-secondary">Voltar para a Loja</a>
+            </div>
+
+        </div>
+    </main>
+    
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderId = new URLSearchParams(window.location.search).get('orderId');
+            
+            const states = {
+                loading: document.getElementById('loading-state'),
+                payment: document.getElementById('payment-state'),
+                success: document.getElementById('success-state'),
+                error: document.getElementById('error-state'),
+            };
+
+            const showState = (stateName) => {
+                Object.values(states).forEach(s => s.style.display = 'none');
+                if (states[stateName]) {
+                    states[stateName].style.display = 'block';
+                }
+            };
+
+            if (!orderId) {
+                document.getElementById('error-message').textContent = 'ID do pedido não encontrado na URL.';
+                showState('error');
+                return;
+            }
+
+            let statusInterval;
+            let timerInterval; // (NOVO) ID do intervalo do timer
+
+            // --- (NOVA) Função do Cronômetro ---
+            const startTimer = (durationInSeconds) => {
+                let timer = durationInSeconds;
+                const timerElement = document.getElementById('pix-timer-display');
+
+                timerInterval = setInterval(() => {
+                    let minutes = parseInt(timer / 60, 10);
+                    let seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    if (timerElement) { // Verifica se o elemento existe
+                        timerElement.textContent = minutes + ":" + seconds;
+                    }
+
+                    if (--timer < 0) {
+                        clearInterval(timerInterval);
+                        clearInterval(statusInterval); // Para de checar o status
+                        alert('Seu tempo para pagamento expirou. Você será redirecionado.');
+                        window.location.href = '/'; // Redireciona para a home
+                    }
+                }, 1000);
+            };
+
+
+            // Função para verificar o status do pagamento
+            const checkStatus = async () => {
+                try {
+                    const response = await fetch(`/api/order-status/${orderId}`);
+                    if (!response.ok) return; 
+
+                    const data = await response.json();
+
+                    if (data.status === 'paid') {
+                        showState('success');
+                        clearInterval(statusInterval); 
+                        clearInterval(timerInterval); // (NOVO) Para o timer
+                        setTimeout(() => { window.location.href = '/'; }, 5000);
+                    } else if (data.status === 'cancelled') {
+                        document.getElementById('error-message').textContent = 'Este pedido foi cancelado ou expirou.';
+                        showState('error');
+                        clearInterval(statusInterval);
+                        clearInterval(timerInterval); // (NOVO) Para o timer
+                    }
+                } catch (err) {
+                    console.error('Erro ao verificar status:', err);
+                }
+            };
+
+            // Função para carregar os dados do PIX
+            const loadPaymentDetails = async () => {
+                try {
+                    const response = await fetch(`/api/order-details/${orderId}`);
+                    
+                    if (response.status === 404) {
+                         throw new Error('Pedido não encontrado.');
+                    }
+                    if (!response.ok) {
+                        throw new Error(`Erro ${response.status}: ${await response.text()}`);
+                    }
+                    
+                    const data = await response.json();
+
+                    if (data.status === 'paid') {
+                        showState('success');
+                        return;
+                    }
+
+                    // Preenche os dados na tela
+                    document.getElementById('qr-code-image').src = data.pixQrCodeImage;
+                    document.getElementById('pix-copy-paste').value = data.pixCopiaECola;
+                    document.getElementById('product-info').textContent = `${data.productTitle} (${data.productPlan})`;
+                    document.getElementById('payment-amount').textContent = `R$ ${data.amount}`;
+                    
+                    showState('payment'); 
+                    
+                    statusInterval = setInterval(checkStatus, 5000); 
+                    
+                    // (NOVO) Inicia o timer (20 minutos)
+                    startTimer(20 * 60); 
+
+                } catch (err) {
+                    console.error('Erro ao carregar detalhes:', err);
+                    document.getElementById('error-message').textContent = err.message || 'Não foi possível carregar os detalhes do seu pedido.';
+                    showState('error');
+                    clearInterval(timerInterval); // (NOVO) Garante que o timer pare em caso de erro
+                }
+            };
+
+            // Copiar para a área de transferência
+            document.getElementById('copy-button').addEventListener('click', () => {
+                const input = document.getElementById('pix-copy-paste');
+                input.select();
+                navigator.clipboard.writeText(input.value).then(() => {
+                    const btn = document.getElementById('copy-button');
+                    btn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 2000);
+                });
+            });
+
+            // Inicia o processo
+            showState('loading');
+            loadPaymentDetails();
+        });
+    </script>
+</body>
+</html>

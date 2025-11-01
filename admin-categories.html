@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciar Categorias</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin"><img src="/logo.png" alt="Logo Invict" class="logo-img"></a>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item"><a href="/admin"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="/admin/products"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    <li class="nav-item"><a href="/admin/coupons"><i class="fas fa-tags"></i><span>Cupons</span></a></li>
+                    <li class="nav-item"><a href="/admin/affiliates"><i class="fas fa-users"></i><span>Afiliados</span></a></li>
+                    <li class="nav-item nav-divider">
+                        <span>Painel Staff</span>
+                    </li>
+                    <li class="nav-item active"><a href="/admin/categories"><i class="fas fa-sitemap"></i><span>Gerenciar Categorias</span></a></li>
+                    <li class="nav-item"><a href="/admin/withdrawals"><i class="fas fa-hand-holding-usd"></i><span>Gerenciar Saques</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width"><i class="fas fa-arrow-left"></i> Voltar ao Site</a>
+            </div>
+        </aside>
+
+        <div class="admin-main-content">
+            <header class="admin-header">
+                <h1>Gerenciar Categorias</h1>
+                <div class="new-nav-actions" id="nav-auth-container"></div>
+            </header>
+
+            <main class="admin-page-content">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Todas as Categorias</h3>
+                        <button class="btn btn-primary" id="btn-new-category"><i class="fas fa-plus"></i> Criar Nova Categoria</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Slug (URL)</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categories-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="category-modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 id="modal-title">Nova Categoria</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <form id="category-form">
+                <input type="hidden" id="categoryId">
+                <div class="form-group">
+                    <label for="name">Nome da Categoria</label>
+                    <input type="text" id="name" name="name" placeholder="Ex: FiveM External" required>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-category">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-categories.js"></script> 
+</body>
+</html>

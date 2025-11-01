@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Admin - Gerenciar Saques</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin"><img src="/logo.png" alt="Logo Invict" class="logo-img"></a>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item"><a href="/admin"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="/admin/products"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    <li class="nav-item"><a href="/admin/coupons"><i class="fas fa-tags"></i><span>Cupons</span></a></li>
+                    <li class="nav-item"><a href="/admin/affiliates"><i class="fas fa-users"></i><span>Afiliados</span></a></li>
+                    <li class="nav-item nav-divider">
+                        <span>Painel Staff</span>
+                    </li>
+                    <li class="nav-item active"><a href="/admin/withdrawals"><i class="fas fa-hand-holding-usd"></i><span>Gerenciar Saques</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width"><i class="fas fa-arrow-left"></i> Voltar ao Site</a>
+            </div>
+        </aside>
+
+        <div class="admin-main-content">
+            <header class="admin-header">
+                <h1>Gerenciar Saques de Afiliados</h1>
+                <div class="new-nav-actions" id="nav-auth-container"></div>
+            </header>
+
+            <main class="admin-page-content">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Solicitações de Saque</h3>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Afiliado</th>
+                                    <th>Valor (R$)</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawals-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="withdrawal-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Detalhes da Solicitação</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            
+            <div class="withdrawal-details-grid">
+                <div class="detail-section">
+                    <h4 class="form-section-title">Informações do Afiliado</h4>
+                    <ul class="details-list-admin">
+                        <li><span>ID do Usuário:</span> <strong id="detail-user-id">...</strong></li>
+                        <li><span>Username:</span> <strong id="detail-user-username">...</strong></li>
+                        <li><span>Nome Completo:</span> <strong id="detail-affiliate-name">...</strong></li>
+                    </ul>
+
+                    <h4 class="form-section-title">Informações do Saque</h4>
+                     <ul class="details-list-admin">
+                        <li><span>ID da Solicitação:</span> <strong id="detail-withdrawal-id">...</strong></li>
+                        <li><span>Data Solicitada:</span> <strong id="detail-request-date">...</strong></li>
+                        <li><span>Valor Solicitado:</span> <strong class="highlight" id="detail-amount">R$ 0,00</strong></li>
+                        <li><span>Status Atual:</span> <strong class="status-badge" id="detail-status">...</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h4 class="form-section-title">Dados de Pagamento (PIX)</h4>
+                    <ul class="details-list-admin">
+                        <li><span>Nome do Titular:</span> <strong id="detail-pix-name">...</strong></li>
+                        <li><span>Tipo de Chave:</span> <strong id="detail-pix-type">...</strong></li>
+                        <li><span>Chave PIX:</span> <strong id="detail-pix-key">...</strong></li>
+                    </ul>
+                    
+                    <div class="form-group" id="rejection-reason-group" style="display: none;">
+                        <label for="rejection-reason">Motivo da Recusa (Obrigatório)</label>
+                        <textarea id="rejection-reason" rows="3" placeholder="O afiliado verá este motivo..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="modal-action-buttons">
+                </div>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-withdrawals.js"></script> 
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Invict</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body"> 
+    <div class="admin-layout">
+        
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin">
+                    <img src="/logo.png" alt="Logo Invict" class="logo-img">
+                </a>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item active"> 
+                        <a href="/admin">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/products">
+                            <i class="fas fa-box"></i>
+                            <span>Produtos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/coupons"> <i class="fas fa-tags"></i>
+                            <span>Cupons</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/affiliates"> <i class="fas fa-users"></i>
+                            <span>Afiliados</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item nav-divider">
+                        <span>Painel Staff</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/categories"><i class="fas fa-sitemap"></i><span>Gerenciar Categorias</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/withdrawals"><i class="fas fa-hand-holding-usd"></i><span>Gerenciar Saques</span></a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar ao Site
+                </a>
+            </div>
+        </aside>
+        <div class="admin-main-content">
+            
+            <header class="admin-header">
+                <h1>Dashboard</h1>
+                <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </header>
+
+            <main class="admin-dashboard-content">
+                <div class="admin-card date-filter">
+                    <h3 class="card-title">Filtrar Métricas</h3>
+                    <div class="filter-controls">
+                        <div class="form-group">
+                            <label for="date-start">Data Inicial</label>
+                            <input type="date" id="date-start">
+                        </div>
+                        <div class="form-group">
+                            <label for="date-end">Data Final</label>
+                            <input type="date" id="date-end">
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stat-card-grid">
+                    <div class="stat-card">
+                        <h3>Vendas Totais</h3>
+                        <p class="value" id="stat-total-sales">R$ 0,00</p>
+                        <span class="detail">Todo o período</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Vendas (Filtro)</h3>
+                        <p class="value" id="stat-filtered-sales">R$ 0,00</p>
+                        <span class="detail">Vendas no período</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Cupons Usados</h3>
+                        <p class="value" id="stat-coupons-used">0</p>
+                        <span class="detail">No período</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Novos Usuários</h3>
+                        <p class="value" id="stat-new-users">0</p>
+                        <span class="detail">No período</span>
+                    </div>
+                </div>
+
+                <div class="admin-card chart-container">
+                    <h3 class="card-title">Vendas ao Longo do Tempo</h3>
+                    <div class="placeholder-chart">
+                        <i class="fas fa-chart-area"></i>
+                        <p>Gráfico de Vendas (placeholder)</p>
+                    </div>
+                </div>
+
+                <div class="admin-card table-container">
+                    <h3 class="card-title">Pedidos Recentes</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID do Pedido</th>
+                                <th>Usuário</th>
+                                <th>Produto</th>
+                                <th>Status</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-orders-body">
+                            </tbody>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-dashboard.js"></script> 
+</body>
+</html>

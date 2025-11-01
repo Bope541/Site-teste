@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Painel de Afiliado</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css"> <link rel="stylesheet" href="/affiliate-dashboard.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body"> <header class="new-navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a>
+            </div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <div class="affiliate-layout">
+        <aside class="affiliate-sidebar">
+            <div class="sidebar-header">
+                <h3>Painel de Afiliado</h3>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item active" data-tab="overview">
+                        <a href="#"><i class="fas fa-chart-line"></i><span>Visão Geral</span></a>
+                    </li>
+                    <li class="nav-item" data-tab="withdrawals">
+                        <a href="#"><i class="fas fa-money-bill-wave"></i><span>Meus Saques</span></a>
+                    </li>
+                    <li class="nav-item" data-tab="coupons">
+                        <a href="#"><i class="fas fa-tags"></i><span>Meus Cupons</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="affiliate-main-content">
+            
+            <main class="admin-page-content affiliate-tab-content active" id="tab-overview">
+                
+                <div class="stat-card-grid animate-on-scroll">
+                    <div class="stat-card">
+                        <h3>Saldo Disponível</h3>
+                        <p class="value" id="stat-balance">R$ 0,00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Ganho (Vitalício)</h3>
+                        <p class="value" id="stat-total-earned">R$ 0,00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Sacado</h3>
+                        <p class="value" id="stat-total-withdrawn">R$ 0,00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Vendas (Últimos 30d)</h3>
+                        <p class="value" id="stat-sales-30d">0</p>
+                    </div>
+                </div>
+
+                <div class="admin-card animate-on-scroll" id="withdrawal-card">
+                    <h3 class="card-title">Solicitar Saque</h3>
+                    <div class="withdrawal-content">
+                        <div class="balance-info">
+                            <span>Saldo Disponível:</span>
+                            <strong id="withdrawal-balance">R$ 0,00</strong>
+                        </div>
+                        <p class="withdrawal-note">Saque mínimo: <strong>R$ 100,00</strong></p>
+                        <button class="btn btn-primary" id="btn-request-withdrawal" disabled>
+                            <i class="fas fa-paper-plane"></i> Solicitar Saque
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-card animate-on-scroll">
+                    <h3 class="card-title">Vendas Recentes (Comissão)</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Produto</th>
+                                    <th>Valor (Venda)</th>
+                                    <th>Comissão (Ganho)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-sales-table">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <main class="admin-page-content affiliate-tab-content" id="tab-withdrawals">
+                 <div class="admin-card">
+                    <h3 class="card-title">Histórico de Saques</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Chave PIX</th>
+                                    <th>Info</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawals-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+            
+            <main class="admin-page-content affiliate-tab-content" id="tab-coupons">
+                 <div class="admin-card">
+                    <h3 class="card-title">Meus Cupons de Afiliado</h3>
+                     <p>Use estes cupons para divulgar e ganhar comissões!</p>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Desconto</th>
+                                    <th>Usos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coupons-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <div class="modal" id="withdrawal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Solicitação de Saque</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Você está prestes a solicitar um saque de:</p>
+                <h2 class="highlight" id="modal-withdrawal-amount">R$ 0,00</h2>
+                <hr class="form-divider">
+                <h4>Informações Importantes:</h4>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Os saques são processados manualmente e podem levar <strong>até 3 dias úteis</strong> para cair na sua conta.</li>
+                    <li><i class="fas fa-eye"></i> Todas as solicitações são analisadas pela nossa equipe.</li>
+                    <li><i class="fas fa-check-circle"></i> O valor será enviado para a chave PIX cadastrada em sua conta de afiliado.</li>
+                </ul>
+                <div class="terms-check" style="margin-top: 20px;">
+                    <input type="checkbox" id="terms-withdrawal">
+                    <label for="terms-withdrawal">Li e aceito os termos da solicitação de saque.</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-confirm-withdrawal" disabled>Confirmar Solicitação</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/affiliate-dashboard.js"></script> 
+</body>
+</html>

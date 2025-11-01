@@ -1,0 +1,326 @@
+/* --- Estilos da Seção da Loja --- */
+
+.store-section {
+    padding: 60px 0;
+    /* O fundo agora é o mais escuro, como na imagem de referência */
+    background-color: var(--color-dark-bg);
+    min-height: 80vh;
+}
+
+/* --- Cabeçalho da Loja (Título e Infos) --- */
+.store-header {
+    text-align: left; /* Alinhado à esquerda como na referência */
+    margin-bottom: 40px;
+}
+
+.store-header h2 {
+    text-align: left;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.store-subtitle {
+    text-align: left;
+    font-size: 1rem;
+    color: var(--color-gray-text);
+    margin-bottom: 25px;
+    max-width: 600px;
+}
+
+.store-info-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.store-info-bar .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Usamos a cor verde principal para os ícones */
+.store-info-bar .info-item i {
+    color: var(--color-green-primary);
+    font-size: 1.1rem;
+}
+
+
+/* --- Layout Principal (Sidebar + Grid) --- */
+.store-layout {
+    display: grid;
+    /* Coluna 1 (sidebar) com 260px, Coluna 2 (produtos) ocupa o resto */
+    grid-template-columns: 260px 1fr;
+    gap: 30px;
+}
+
+/* --- Barra Lateral (Sidebar) --- */
+.store-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-widget {
+    background-color: var(--color-dark-surface);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Widget de Pesquisa */
+.sidebar-search {
+    position: relative;
+}
+
+/* Em store.css */
+
+.sidebar-search .fa-search {
+    position: absolute;
+    left: 35px; /* CORRIGIDO: 20px de padding + 15px de espaço */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
+    z-index: 10; /* Garante que o ícone fica por cima */
+}
+
+.sidebar-search input {
+    width: 100%;
+    /* CORRIGIDO: Aumenta o padding para dar espaço ao ícone (35px + 20px) */
+    padding: 12px 15px 12px 60px; 
+    background-color: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+    position: relative; /* Para garantir o z-index */
+}
+
+.sidebar-search input:focus {
+    border-color: var(--color-green-primary);
+    outline: none;
+}
+
+/* Widget de Categorias */
+.sidebar-title {
+    font-size: 1.1rem;
+    color: var(--color-white);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-item:hover {
+    background-color: var(--color-dark-bg);
+    color: var(--color-white);
+}
+
+/* Categoria Ativa (com nossa cor verde) */
+.category-item.active {
+    background-color: rgba(0, 255, 136, 0.1); /* Fundo verde transparente */
+    color: var(--color-green-primary);
+    font-weight: 600;
+}
+
+.category-count {
+    font-size: 0.85rem;
+    background-color: var(--color-dark-bg);
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: var(--color-gray-text);
+}
+
+.category-item.active .category-count {
+    background-color: var(--color-green-primary);
+    color: var(--color-dark-bg); /* Texto escuro no contador verde */
+}
+
+
+/* --- Conteúdo Principal (Grid de Produtos) --- */
+.store-main-content {
+    width: 100%;
+}
+
+.store-results-header {
+    margin-bottom: 20px;
+}
+
+.results-count {
+    font-size: 0.95rem;
+    color: var(--color-gray-text);
+}
+
+/* --- Grid de Produtos --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* --- Card de Produto Individual (Atualizado) --- */
+.product-card {
+    text-decoration: none; /* Card agora é um link */
+    background-color: var(--color-dark-surface); /* Fundo do card */
+    border: 1px solid var(--color-dark-border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-image {
+    width: 100%;
+    height: 180px; /* Altura da imagem */
+    overflow: hidden;
+    position: relative; /* Para o badge */
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Badge (Tag "Indetectável") */
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    /* Usando nossa cor verde com transparência */
+    background-color: rgba(0, 255, 136, 0.8);
+    color: var(--color-dark-bg);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    backdrop-filter: blur(5px); /* Efeito de desfoque legal */
+}
+
+.product-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 1.15rem;
+    color: var(--color-white);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Estilo da Avaliação (Estrelas) */
+.product-rating {
+    font-size: 0.95rem;
+    color: var(--color-gray-text);
+    margin-bottom: 15px;
+}
+
+.product-rating i {
+    color: #f0c04a; /* Amarelo para a estrela */
+    margin-right: 4px;
+}
+
+/* Informações (Plataforma, Entrega) */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--color-dark-border);
+    padding-top: 15px;
+    gap: 10px;
+}
+
+.meta-item {
+    font-size: 0.9rem;
+}
+
+.meta-label {
+    display: block;
+    color: var(--color-gray-text);
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+}
+
+.meta-value {
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+/* Preço do Produto */
+.product-price {
+    margin-top: auto; /* Empurra o preço para baixo */
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-green-primary);
+}
+
+/* --- Efeito de Hover (Aprimorado) --- */
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-green-primary);
+    box-shadow: 0 10px 25px rgba(0, 255, 136, 0.1);
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .store-layout {
+        /* Sidebar fica um pouco menor */
+        grid-template-columns: 220px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .store-layout {
+        /* Colunas empilhadas em telas pequenas */
+        grid-template-columns: 1fr;
+    }
+    .store-sidebar {
+        margin-bottom: 30px;
+    }
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .store-header h2 {
+        font-size: 2rem;
+    }
+    .product-grid {
+        /* Força 1 coluna em celulares */
+        grid-template-columns: 1fr;
+    }
+}

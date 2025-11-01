@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Detalhes do Produto</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/product-page.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="/faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </div>
+
+        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-links">
+                </nav>
+            
+            <div class="mobile-nav-actions" id="mobile-nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail-section" id="product-section">
+            <div class="container">
+                
+                <a href="/loja.html" class="back-to-store" data-key="prod_back">
+                    <i class="fas fa-arrow-left"></i> Voltar aos produtos
+                </a>
+
+                <div class="product-layout" id="product-layout" style="display:none;">
+                    
+                    <div class="product-gallery">
+                        <div class="main-image-wrapper">
+                            <img src="" alt="Imagem Principal do Produto" class="main-product-image" id="product-image">
+                            <span class="product-badge" id="product-badge" data-key="prod_badge">Indetectável</span>
+                            <button class="gallery-arrow left" id="gallery-prev"><i class="fas fa-chevron-left"></i></button>
+                            <button class="gallery-arrow right" id="gallery-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="thumbnail-gallery" id="thumbnail-gallery">
+                            </div>
+                    </div>
+                    <div class="product-info">
+                        <h1 class="product-title" id="product-title">Carregando...</h1>
+                        
+                        <div class="product-meta-info">
+                            <span><i class="fas fa-star"></i> <span id="product-rating">5.0</span></span>
+                            <span data-key="store_info_delivery"><i class="fas fa-bolt"></i> Entrega Automática</span>
+                        </div>
+
+                        <div class="plan-selector" id="plan-selector">
+                        </div>
+
+                        <div class="price-display" id="price-display">R$0.00</div>
+
+                        <div class="action-buttons">
+                            <a href="#" class="btn btn-primary" id="buy-button" data-key="prod_buy"><i class="fas fa-shopping-cart"></i> Comprar Agora</a>
+                            <a href="#" class="btn btn-secondary" data-key="prod_preview"><i class="fas fa-play"></i> Prévia</a>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <span class="payment-title">Pagamento Seguro:</span>
+                            <div class="payment-icons">
+                                <i class="fa-brands fa-pix"></i>
+                                <i class="fas fa-credit-card"></i>
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                        </div>
+                        <div class="product-description" id="product-details-container">
+                            <h3 data-key="prod_details_title">Detalhes do Produto</h3>
+                            <ul class="details-list" id="details-list">
+                            </ul>
+                            <div id="product-description-content" style="margin-top: 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="loading-state" style="text-align: center; padding: 50px 0;">
+                    <h2>Carregando produto...</h2>
+                </div>
+                <div id="error-state" style="display: none; text-align: center; padding: 50px 0;">
+                    <h2>Produto não encontrado</h2>
+                    <p>O produto que você está procurando não existe ou foi removido.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productLayout = document.getElementById('product-layout');
+            const loadingState = document.getElementById('loading-state');
+            const errorState = document.getElementById('error-state');
+
+            // Elementos do produto
+            const productImage = document.getElementById('product-image');
+            const productBadge = document.getElementById('product-badge');
+            const productTitle = document.getElementById('product-title');
+            const productRating = document.getElementById('product-rating');
+            const planSelector = document.getElementById('plan-selector');
+            const priceDisplay = document.getElementById('price-display');
+            const buyButton = document.getElementById('buy-button');
+            const detailsList = document.getElementById('details-list');
+            const descriptionContent = document.getElementById('product-description-content');
+
+            // (NOVOS Elementos da Galeria)
+            const thumbnailGallery = document.getElementById('thumbnail-gallery');
+            const galleryPrev = document.getElementById('gallery-prev');
+            const galleryNext = document.getElementById('gallery-next');
+
+            let selectedPlan = null;
+            let currentProduct = null;
+            let currentImageIndex = 0; // Rastreador de imagem
+
+            // --- Função para atualizar a imagem principal e thumbnails ---
+            function updateMainImage(index) {
+                if (!currentProduct || index < 0 || index >= currentProduct.imageUrls.length) {
+                    return; // Prevenção de erro
+                }
+                
+                currentImageIndex = index; // Atualiza o índice global
+                
+                // Atualiza a imagem principal
+                productImage.src = currentProduct.imageUrls[currentImageIndex];
+                
+                // Atualiza a classe 'active' nos thumbnails
+                thumbnailGallery.querySelectorAll('.thumb-item').forEach((thumb, i) => {
+                    if (i === currentImageIndex) {
+                        thumb.classList.add('active');
+                        // Scrolla a thumbnail para a visão
+                        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- Função de carregar o produto ---
+            const loadProduct = async () => {
+                const slug = new URLSearchParams(window.location.search).get('slug');
+                if (!slug) {
+                    showError();
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/api/products/slug/${slug}`);
+                    if (!response.ok) {
+                        showError();
+                        return;
+                    }
+                    const product = await response.json();
+                    currentProduct = product;
+                    
+                    renderProduct(product);
+                    showProduct();
+
+                } catch (err) {
+                    console.error(err);
+                    showError();
+                }
+            };
+
+            const showError = () => {
+                loadingState.style.display = 'none';
+                productLayout.style.display = 'none';
+                errorState.style.display = 'block';
+            };
+
+            const showProduct = () => {
+                loadingState.style.display = 'none';
+                errorState.style.display = 'none';
+                productLayout.style.display = 'grid'; // 'grid' para bater com o CSS
+            };
+
+            // --- Função de renderizar ---
+            const renderProduct = (product) => {
+                document.title = `Invict - ${product.name}`; // Atualiza o título da aba
+                
+                // Define a primeira imagem como principal
+                productImage.src = product.imageUrls[0]; 
+                productImage.alt = `Imagem de ${product.name}`;
+                productTitle.textContent = product.name;
+                productRating.textContent = product.rating.toFixed(1);
+                
+                if (!product.isDetectado) {
+                    productBadge.style.display = 'none';
+                }
+
+                // Renderiza os detalhes
+                detailsList.innerHTML = `
+                    <li>
+                        <span data-key="prod_details_platform">Plataforma</span>
+                        <span>${product.platform}</span>
+                    </li>
+                    <li>
+                        <span data-key="prod_details_type">Tipo</span>
+                        <span>${product.productType}</span>
+                    </li>
+                    <li>
+                        <span data-key="prod_details_warranty">Garantia</span>
+                        <span>${product.warranty}</span>
+                    </li>
+                `;
+                
+                // Renderiza a descrição (permite HTML)
+                descriptionContent.innerHTML = product.description;
+
+                // Renderiza os planos (botões)
+                planSelector.innerHTML = ''; // Limpa
+                product.plans.forEach((plan, index) => {
+                    const tab = document.createElement('button');
+                    tab.className = 'plan-tab';
+                    tab.dataset.price = plan.price.toFixed(2);
+                    tab.dataset.planName = plan.name;
+                    tab.textContent = plan.name; // ex: "1 Semana"
+                    
+                    if (index === 0) {
+                        tab.classList.add('active'); // Ativa o primeiro plano
+                        priceDisplay.textContent = `R$${plan.price.toFixed(2)}`;
+                        // Salva o objeto do plano completo
+                        selectedPlan = plan; 
+                    }
+                    
+                    tab.addEventListener('click', () => {
+                        // Remove 'active' de todos
+                        planSelector.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
+                        // Adiciona 'active' ao clicado
+                        tab.classList.add('active');
+                        // Atualiza o preço
+                        const price = tab.dataset.price;
+                        priceDisplay.textContent = `R$${price}`;
+                        // Salva o objeto do plano completo
+                        selectedPlan = {
+                            name: tab.dataset.planName,
+                            price: parseFloat(price) // Salva como número
+                        };
+                    });
+                    
+                    planSelector.appendChild(tab);
+                });
+
+                // --- Renderiza a galeria de thumbnails ---
+                thumbnailGallery.innerHTML = ''; // Limpa
+                product.imageUrls.forEach((url, index) => {
+                    const thumbWrapper = document.createElement('div');
+                    thumbWrapper.className = 'thumb-item';
+                    thumbWrapper.dataset.index = index;
+                    thumbWrapper.innerHTML = `<img src="${url}" alt="Thumbnail ${index + 1}">`;
+                    
+                    if (index === 0) {
+                        thumbWrapper.classList.add('active'); // Ativa o primeiro
+                    }
+                    
+                    // Adiciona listener para trocar imagem ao clicar
+                    thumbWrapper.addEventListener('click', () => {
+                        updateMainImage(index);
+                    });
+                    
+                    thumbnailGallery.appendChild(thumbWrapper);
+                });
+                
+                // Esconde as setas se houver apenas 1 imagem
+                if (product.imageUrls.length <= 1) {
+                    galleryPrev.style.display = 'none';
+                    galleryNext.style.display = 'none';
+                }
+            };
+
+            // --- Listeners das Setas ---
+            galleryPrev.addEventListener('click', () => {
+                let newIndex = currentImageIndex - 1;
+                if (newIndex < 0) {
+                    newIndex = currentProduct.imageUrls.length - 1; // Volta para o final
+                }
+                updateMainImage(newIndex);
+            });
+            
+            galleryNext.addEventListener('click', () => {
+                let newIndex = currentImageIndex + 1;
+                if (newIndex >= currentProduct.imageUrls.length) {
+                    newIndex = 0; // Volta para o início
+                }
+                updateMainImage(newIndex);
+            });
+
+            // --- Listener do Botão Comprar (MODIFICADO) ---
+            buyButton.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                if (!selectedPlan || !currentProduct) return;
+
+                const checkoutItem = {
+                    productId: currentProduct._id, // <-- ID do produto
+                    title: currentProduct.name,
+                    plan: selectedPlan.name,
+                    // Garante que o preço está formatado como R$XX.XX
+                    price: `R$${parseFloat(selectedPlan.price).toFixed(2)}`,
+                    // Envia a primeira imagem (principal) para o checkout
+                    image: currentProduct.imageUrls[0],
+                    slug: currentProduct.slug // <-- Slug para o link "Voltar"
+                };
+                
+                localStorage.setItem('checkoutItem', JSON.stringify(checkoutItem));
+                window.location.href = 'checkout.html';
+            });
+
+            // Inicia o carregamento
+            loadProduct();
+        });
+    </script>
+
+</body>
+</html>

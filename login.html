@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-page">
+
+<header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="/faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </div>
+
+        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-links">
+                </nav>
+            
+            <div class="mobile-nav-actions" id="mobile-nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-card">
+            <h2 data-key="login_title">Bem-vindo de volta à <span class="highlight">Invict</span></h2>
+            <p class="auth-subtitle" data-key="login_subtitle">Digite suas informações para <a href="/login">Logar</a></p>
+            
+            <p id="auth-error-msg" class="auth-error" style="display:none;"></p>
+            <p id="auth-success-msg" class="auth-success" style="display:none;"></p>
+
+            <form action="/login" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="username_email" data-key="login_email_user">EMAIL OU NOME DE USUÁRIO</label>
+                    <input type="text" id="username_email" name="username_email" placeholder="unknownuser" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" data-key="login_password">SENHA</label>
+                    <input type="password" id="password" name="password" placeholder="********" required>
+                    <i class="fas fa-eye password-toggle-icon" id="togglePassword"></i>
+                </div>
+                <div class="auth-options">
+                    <a href="/forgot-password" class="forgot-password" data-key="login_forgot">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn btn-primary full-width" data-key="login_continue">Continuar</button>
+            </form>
+
+            <div class="auth-divider" data-key="form_or">OU</div>
+
+            <a href="/auth/discord" class="btn btn-discord full-width">
+                <i class="fab fa-discord"></i>
+                <span data-key="login_discord">Logar com Discord</span>
+            </a>
+
+            <div class="auth-switch-link">
+                <span data-key="login_no_account">Não possui conta?</span>
+                <a href="/register" data-key="login_register_now">Cadastre-se agora</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+            <a href="/" class="footer-bottom-link" data-key="footer_start">Começar</a>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script> 
+
+</body>
+</html>

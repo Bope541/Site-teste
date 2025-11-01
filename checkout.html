@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Finalizar Pagamento</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/checkout.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="new-navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                </a>
+            </div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="checkout-section">
+            <div class="container">
+                
+                <a href="produto.html" class="back-link" id="back-link-product">
+                    <i class="fas fa-arrow-left"></i> <span data-key="prod_back">Voltar ao produto</span>
+                </a>
+
+                <form id="checkout-form" action="/criar-pagamento" method="POST">
+                    <div class="checkout-layout">
+                        
+                        <div class="checkout-form">
+                            <div class="checkout-card">
+                                <h3 class="card-title"><i class="fas fa-user-circle"></i> <span data-key="checkout_billing">Dados da Cobrança</span></h3>
+                                <div class="form-group">
+                                    <label for="full_name" data-key="checkout_full_name">NOME COMPLETO *</label>
+                                    <input type="text" id="full_name" name="full_name" placeholder="Seu nome completo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cpf" data-key="checkout_cpf">CPF *</label>
+                                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" data-key="checkout_email">E-MAIL *</label>
+                                    <input type="email" id="email" name="email" placeholder="email@email.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="checkout-card">
+                                <h3 class="card-title"><i class="fas fa-wallet"></i> <span data-key="checkout_payment_method">Método de Pagamento</span></h3>
+                                <div class="payment-method-selector" id="payment-selector">
+                                    <button type="button" class="payment-tab active" data-method="pix">
+                                        <span><i class="fa-brands fa-pix"></i> <span data-key="checkout_pix">PIX</span></span>
+                                    </button>
+                                    <button type="button" class="payment-tab payment-tab-disabled" data-method="card" disabled>
+                                        <span><i class="fas fa-credit-card"></i> <span data-key="checkout_card">Cartão de Crédito</span></span>
+                                        <span class="dev-badge" data-key="checkout_in_development">Em Desenvolvimento</span>
+                                    </button>
+                                    <button type="button" class="payment-tab payment-tab-disabled" data-method="paypal" disabled>
+                                        <span><i class="fa-brands fa-paypal"></i> <span data-key="checkout_paypal">Paypal</span></span>
+                                        <span class="dev-badge" data-key="checkout_in_development">Em Desenvolvimento</span>
+                                    </button>
+                                    <button type="button" class="payment-tab payment-tab-disabled" data-method="stripe" disabled>
+                                        <span><i class="fa-brands fa-stripe"></i> <span data-key="checkout_stripe">Stripe</span></span>
+                                        <span class="dev-badge" data-key="checkout_in_development">Em Desenvolvimento</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="checkout-card terms-card">
+                                <div class="terms-check">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <label for="terms">
+                                        <span data-key="checkout_terms_1">Aceito os</span> <a href="/termos" target="_blank" data-key="checkout_terms_2">termos de serviço</a> <span data-key="checkout_terms_3">e</span> <a href="/privacidade" target="_blank" data-key="checkout_terms_4">política de privacidade</a><span data-key="checkout_terms_5">. Confirmo que os dados informados são verdadeiros.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="productId" name="productId">
+                            <input type="hidden" id="productTitle" name="productTitle">
+                            <input type="hidden" id="productPlan" name="productPlan">
+                            <input type="hidden" id="productPrice" name="productPrice">
+                            <input type="hidden" id="productImage" name="productImage">
+                            </div>
+
+                        <aside class="checkout-sidebar">
+                            
+                            <div class="checkout-card">
+                                <h3 class="card-title"><i class="fas fa-tag"></i> Cupom de Desconto</h3>
+                                <div class="coupon-form" id="coupon-form-wrapper">
+                                    <input type="text" id="coupon-code" placeholder="Digite seu cupom">
+                                    <button type="button" class="btn btn-secondary" id="apply-coupon-btn">Aplicar</button>
+                                </div>
+                                <span class="coupon-message" id="coupon-message"></span>
+                            </div>
+
+                            <div class="checkout-card">
+                                <h3 class="card-title"><i class="fas fa-list-alt"></i> <span data-key="checkout_summary">Resumo do pedido</span></h3>
+                                
+                                <div class="summary-product">
+                                    <img id="summary-image" src="https://via.placeholder.com/150/1A1B1D/00ff88?text=Produto" alt="Produto">
+                                    <div class="summary-product-info">
+                                        <span class="title" id="summary-title">Carregando...</span>
+                                        <span class="plan" id="summary-plan"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-pricing">
+                                    <div class="summary-line">
+                                        <span data-key="checkout_subtotal">Subtotal:</span>
+                                        <span id="summary-subtotal">R$ 0,00</span>
+                                    </div>
+                                    
+                                    <div class="summary-line discount" id="summary-discount-line" style="display: none;">
+                                        <span>Desconto:</span>
+                                        <span id="summary-discount">R$ 0,00</span>
+                                    </div>
+                                
+                                    <div class="summary-line total">
+                                        <span data-key="checkout_total">Total:</span>
+                                        <span id="summary-total">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary full-width" id="submit-button">
+                                    <i class="fas fa-lock"></i> <span data-key="checkout_submit">Finalizar Pagamento</span>
+                                </button>
+                                <span class="secure-note">
+                                    <i class="fas fa-check-circle"></i> <span data-key="checkout_secure_note">Compra 100% segura e protegida</span>
+                                </span>
+                            </div>
+                        </aside>
+                    </div>
+                </form> 
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elementos do DOM ---
+            const form = document.getElementById('checkout-form');
+            const summary = {
+                image: document.getElementById('summary-image'),
+                title: document.getElementById('summary-title'),
+                plan: document.getElementById('summary-plan'),
+                subtotal: document.getElementById('summary-subtotal'),
+                total: document.getElementById('summary-total'),
+                discount: document.getElementById('summary-discount'),
+                discountLine: document.getElementById('summary-discount-line')
+            };
+            const inputs = {
+                productId: document.getElementById('productId'),
+                productTitle: document.getElementById('productTitle'),
+                productPlan: document.getElementById('productPlan'),
+                productPrice: document.getElementById('productPrice'), // Este é o subtotal
+                productImage: document.getElementById('productImage'),
+                // (NOVO) Inputs para o cupom
+                appliedCoupon: document.createElement('input'),
+                finalTotal: document.createElement('input'), // Preço final com desconto
+                discountAmount: document.createElement('input')
+            };
+            const coupon = {
+                input: document.getElementById('coupon-code'),
+                button: document.getElementById('apply-coupon-btn'),
+                message: document.getElementById('coupon-message'),
+                wrapper: document.getElementById('coupon-form-wrapper')
+            };
+            
+            let originalItem = null;
+            let currentSubtotal = 0;
+            let currentDiscount = 0;
+            let currentTotal = 0;
+            let appliedCouponCode = null;
+
+            // --- 1. Inicializa os inputs ocultos do formulário ---
+            inputs.appliedCoupon.type = 'hidden';
+            inputs.appliedCoupon.name = 'couponApplied';
+            form.appendChild(inputs.appliedCoupon);
+
+            inputs.finalTotal.type = 'hidden';
+            inputs.finalTotal.name = 'finalTotal'; // O servidor usará este para o valor
+            form.appendChild(inputs.finalTotal);
+
+            inputs.discountAmount.type = 'hidden';
+            inputs.discountAmount.name = 'discountAmount';
+            form.appendChild(inputs.discountAmount);
+
+            // --- 2. Carrega o item do localStorage ---
+            originalItem = JSON.parse(localStorage.getItem('checkoutItem'));
+            
+            if (!originalItem) {
+                alert('Nenhum item selecionado para checkout. Redirecionando para a loja.');
+                window.location.href = 'loja.html';
+                return;
+            }
+
+            // Converte o preço (ex: "R$ 99,90") para um número (ex: 99.90)
+            currentSubtotal = parseFloat(originalItem.price.replace('R$', '').replace(',', '.').trim());
+            currentTotal = currentSubtotal;
+
+            // Preenche os dados do produto
+            summary.image.src = originalItem.image;
+            summary.title.textContent = originalItem.title;
+            summary.plan.textContent = `Plano: ${originalItem.plan}`;
+
+            // Preenche os inputs ocultos
+            inputs.productId.value = originalItem.productId;
+            inputs.productTitle.value = originalItem.title;
+            inputs.productPlan.value = originalItem.plan;
+            inputs.productPrice.value = currentSubtotal.toFixed(2); // Preço original
+            inputs.productImage.value = originalItem.image;
+
+            // Atualiza o link "Voltar"
+            if (originalItem.slug) {
+                document.getElementById('back-link-product').href = `produto.html?slug=${originalItem.slug}`;
+            }
+
+            // Atualiza o resumo
+            updateSummaryDisplay();
+
+            // --- 3. Lógica do Cupom ---
+            coupon.button.addEventListener('click', applyCoupon);
+
+            async function applyCoupon() {
+                const code = coupon.input.value.trim().toUpperCase();
+                if (!code) return;
+
+                coupon.button.disabled = true;
+                coupon.button.textContent = '...';
+                coupon.message.textContent = '';
+                coupon.message.className = 'coupon-message';
+
+                try {
+                    const response = await fetch('/api/validate-coupon', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            couponCode: code,
+                            productId: originalItem.productId,
+                            subtotal: currentSubtotal * 100 // Envia em centavos
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Erro ao validar cupom');
+                    }
+                    
+                    // SUCESSO!
+                    appliedCouponCode = code;
+                    currentDiscount = data.discountAmount / 100; // Converte centavos para reais
+                    currentTotal = currentSubtotal - currentDiscount;
+                    
+                    updateSummaryDisplay();
+                    
+                    coupon.message.textContent = `Cupom "${code}" aplicado! Desconto de R$ ${currentDiscount.toFixed(2)}.`;
+                    coupon.message.classList.add('success');
+                    coupon.input.disabled = true;
+                    coupon.button.disabled = true;
+                    coupon.button.textContent = 'Aplicado';
+
+                } catch (err) {
+                    // ERRO!
+                    coupon.message.textContent = err.message;
+                    coupon.message.classList.add('error');
+                    coupon.button.disabled = false;
+                    coupon.button.textContent = 'Aplicar';
+                }
+            }
+
+            // --- 4. Função de Atualizar Resumo ---
+            function updateSummaryDisplay() {
+                summary.subtotal.textContent = `R$ ${currentSubtotal.toFixed(2)}`;
+                
+                if (currentDiscount > 0) {
+                    summary.discount.textContent = `- R$ ${currentDiscount.toFixed(2)}`;
+                    summary.discountLine.style.display = 'flex';
+                } else {
+                    summary.discountLine.style.display = 'none';
+                }
+                
+                summary.total.textContent = `R$ ${currentTotal.toFixed(2)}`;
+
+                // Atualiza os inputs ocultos finais
+                inputs.appliedCoupon.value = appliedCouponCode;
+                inputs.finalTotal.value = currentTotal.toFixed(2);
+                inputs.discountAmount.value = currentDiscount.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>

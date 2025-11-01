@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Detalhes do Pedido</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/minha-conta.css"> <link rel="stylesheet" href="/pedido-detalhes.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container"></div>
+        </div>
+    </header>
+
+    <main class="account-main">
+        <div class="container">
+            <a href="/meus-pedidos" class="back-link">
+                <i class="fas fa-arrow-left"></i> <span data-key="orders_back">Voltar para Pedidos</span>
+            </a>
+            <h1 data-key="order_details_title">Detalhes do Pedido</h1>
+
+            <div id="loading" class="subs-placeholder" style="display: block;">
+                <div class="loader"></div>
+                <span data-key="orders_loading">Carregando pedidos...</span>
+            </div>
+            
+            <div id="order-content" style="display: none;">
+                <div class="account-layout">
+                    <div class="account-column-main" id="key-column" style="display: none;">
+                        <div class="account-card key-card">
+                            <h3 class="card-title" data-key="order_key_title">Sua Chave de Ativação</h3>
+                            
+                            <p class="card-subtitle" data-key="order_key_subtitle">
+                                Sua assinatura já está ativa! Você pode vê-la em "Minha Conta". Esta é sua chave para referência ou uso externo (ex: launcher).
+                            </p>
+                            <div class="key-display-wrapper">
+                                <input type="text" id="key-string" value="..." readonly>
+                                <button class="btn btn-primary" id="copy-key-btn">
+                                    <i class="fas fa-copy"></i>
+                                    <span data-key="order_key_copy">Copiar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-column-side">
+                        <div class="account-card">
+                            <h3 class="card-title" data-key="order_summary">Resumo do Pedido</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label data-key="order_number">NÚMERO DO PEDIDO</label>
+                                    <span id="info-order-number">...</span>
+                                </div>
+                                <div class="info-item">
+                                    <label data-key="orders_date">DATA</label>
+                                    <span id="info-date">...</span>
+                                </div>
+                                <div class="info-item">
+                                    <label data-key="orders_product">PRODUTO</label>
+                                    <span id="info-product">...</span>
+                                </div>
+                                <div class="info-item">
+                                    <label data-key="orders_plan">PLANO</label>
+                                    <span id="info-plan">...</span>
+                                </div>
+                                <div class="info-item">
+                                    <label data-key="orders_value">VALOR TOTAL</label>
+                                    <span id="info-value" class="total-value">...</span>
+                                </div>
+                                <div class="info-item">
+                                    <label data-key="orders_status">STATUS</label>
+                                    <span id="info-status">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/pedido-detalhes.js"></script> </body>
+</html>

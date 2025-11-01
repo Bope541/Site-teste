@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciar Cupons</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        .select-products {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--color-dark-bg);
+            border: 1px solid var(--color-dark-border);
+            border-radius: 8px;
+            color: var(--color-white);
+            font-size: 1rem;
+            height: 150px;
+        }
+        .select-products option {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin"><img src="/logo.png" alt="Logo Invict" class="logo-img"></a>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="nav-item"><a href="/admin"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a href="/admin/products"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    
+                    <li class="nav-item active"><a href="/admin/coupons"><i class="fas fa-tags"></i><span>Cupons</span></a></li>
+                    
+                    <li class="nav-item"><a href="/admin/affiliates"><i class="fas fa-users"></i><span>Afiliados</span></a></li>
+                    
+                    <li class="nav-item nav-divider">
+                        <span>Painel Staff</span>
+                    </li>
+                    <li class="nav-item"><a href="/admin/withdrawals"><i class="fas fa-hand-holding-usd"></i><span>Gerenciar Saques</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="btn btn-secondary full-width"><i class="fas fa-arrow-left"></i> Voltar ao Site</a>
+            </div>
+        </aside>
+
+        <div class="admin-main-content">
+            <header class="admin-header">
+                <h1>Gerenciar Cupons</h1>
+                <div class="new-nav-actions" id="nav-auth-container"></div>
+            </header>
+
+            <main class="admin-page-content">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Todos os Cupons</h3>
+                        <button class="btn btn-primary" id="btn-new-coupon"><i class="fas fa-plus"></i> Criar Novo Cupom</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Usos</th>
+                                    <th>Expira em</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coupons-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="coupon-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Criar Novo Cupom</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <form id="coupon-form">
+                <input type="hidden" id="couponId" name="couponId">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="code">Código do Cupom (ex: BEMVINDO10)</label>
+                        <input type="text" id="code" name="code" style="text-transform: uppercase;" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="discountType">Tipo de Desconto</label>
+                        <select id="discountType" name="discountType" required>
+                            <option value="percentage">Porcentagem (%)</option>
+                            <option value="fixed">Valor Fixo (R$)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="discountValue">Valor do Desconto</label>
+                        <input type="number" id="discountValue" name="discountValue" step="0.01" required placeholder="Ex: 10 para 10% ou 10 para R$10,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="minPurchase">Valor Mínimo da Compra (R$)</label>
+                        <input type="number" id="minPurchase" name="minPurchase" step="0.01" placeholder="Deixe 0 para sem mínimo">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="expiresAt">Data de Expiração (Opcional)</label>
+                        <input type="date" id="expiresAt" name="expiresAt" style="color-scheme: dark;">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxUses">Limite de Usos Totais</label>
+                        <input type="number" id="maxUses" name="maxUses" step="1" placeholder="Ex: 100">
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+
+                <div class="form-group">
+                    <label for="applicableProducts">Produtos Aplicáveis (Segure Ctrl/Cmd para selecionar vários)</label>
+                    <p style="font-size: 0.8rem; color: var(--color-gray-text); margin-top: -10px; margin-bottom: 10px;">
+                        Se nenhum produto for selecionado, o cupom será válido para TODOS os produtos.
+                    </p>
+                    <select id="applicableProducts" name="applicableProducts" class="select-products" multiple>
+                        </select>
+                </div>
+
+                <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+                    <input type="checkbox" id="isActive" name="isActive" checked style="accent-color: var(--color-green-primary); width: 18px; height: 18px;">
+                    <label for="isActive" style="margin-bottom: 0;">Cupom Ativo</label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-coupon">Salvar Cupom</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/admin-coupons.js"></script> 
+</body>
+</html>

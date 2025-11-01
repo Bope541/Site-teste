@@ -1,0 +1,56 @@
+/* Reutiliza estilos de minha-conta.css */
+@import url('/minha-conta.css');
+
+/* Link de voltar */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+.back-link:hover {
+    color: var(--color-green-primary);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Garante que a coluna da chave (principal) seja a mais larga */
+.account-layout {
+    grid-template-columns: 2fr 1fr;
+}
+
+.total-value {
+    color: var(--color-green-primary) !important;
+    font-size: 1.1rem !important;
+}
+
+/* Card da Chave */
+.key-card {
+    background-color: var(--color-dark-bg);
+    border-color: var(--color-green-primary); /* Destaque verde */
+}
+
+.key-display-wrapper {
+    display: flex;
+    gap: 10px;
+}
+.key-display-wrapper input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    background-color: var(--color-dark-surface);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: monospace;
+}
+.key-display-wrapper .btn {
+    flex-shrink: 0;
+}

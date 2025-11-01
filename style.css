@@ -1,0 +1,1200 @@
+/* Variáveis de Cores (Verde no lugar do Azul) */
+    :root {
+        --color-dark-bg: #0A0A0B;      /* Fundo principal bem escuro */
+        --color-dark-surface: #1A1B1D; /* Superfícies um pouco mais claras */
+        --color-dark-border: #2A2B2D;  /* Bordas sutis */
+        --color-white: #f5f5f5;        /* Texto principal claro */
+        --color-gray-text: #B0B0B0;    /* Texto secundário/descrições */
+        --color-green-primary: #00ff88; /* Verde vibrante para destaque */
+        --color-green-dark: #00cc6e;    /* Verde mais escuro para hover */
+        --color-green-light: #33ffab;   /* Verde mais claro para sombras/realces */
+        --color-discord: #5865F2;       /* Mantido para o ícone do Discord se usado */
+    }
+
+    /* Base Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif; /* Uma fonte moderna */
+        background-color: var(--color-dark-bg);
+        color: var(--color-white);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+        overflow-x: hidden; /* Previne scroll horizontal */
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .highlight {
+        color: var(--color-green-primary);
+    }
+
+    /* --- Botões Genéricos --- */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn i {
+        margin-right: 8px;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: var(--color-green-primary);
+        color: var(--color-dark-bg);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-green-dark);
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--color-white);
+        border: 1px solid var(--color-dark-border);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color-dark-surface);
+        border-color: var(--color-green-primary);
+    }
+
+    .btn-icon-left i {
+        margin-right: 10px;
+    }
+
+    /* --- Novo Cabeçalho --- */
+    .new-navbar {
+        background-color: var(--color-dark-bg);
+        padding: 1.2rem 0;
+        border-bottom: 1px solid var(--color-dark-border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .new-navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .new-navbar .logo-img {
+        height: 35px; /* Ajuste o tamanho da logo */
+        width: auto;
+    }
+
+    .new-nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .new-nav-links .nav-item {
+        color: var(--color-gray-text);
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .new-nav-links .nav-item:hover {
+        color: var(--color-green-primary);
+    }
+
+    .new-nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+    }
+
+    .new-nav-actions .btn {
+        padding: 10px 20px; /* Botões menores no cabeçalho */
+        font-size: 0.95rem;
+    }
+
+    .btn-flag {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-flag img {
+        width: 28px;
+        height: 21px; /* Proporção 4x3 */
+        border-radius: 4px;
+        border: 1px solid var(--color-dark-border);
+    }
+
+    /* --- Hero Section --- */
+    .hero-section {
+        padding: 80px 0 60px 0; /* Padding superior, ajuste conforme necessário */
+        background: radial-gradient(at 10% 20%, rgba(0,255,136, 0.1) 0%, transparent 50%),
+                    radial-gradient(at 90% 80%, rgba(0,255,136, 0.1) 0%, transparent 50%),
+                    var(--color-dark-bg);
+        overflow: hidden;
+    }
+
+    .hero-section .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .hero-content {
+        flex: 1;
+        max-width: 600px;
+    }
+
+    .hero-content .tag {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(0, 255, 136, 0.1);
+        color: var(--color-green-primary);
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .hero-content .tag i {
+        margin-right: 8px;
+        font-size: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        font-weight: 800;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        color: var(--color-gray-text);
+        margin-bottom: 30px;
+        max-width: 500px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap; /* Para quebrar linha em telas pequenas */
+    }
+
+    .hero-media {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+    }
+
+    .video-thumbnail {
+        position: relative;
+        width: 100%;
+        max-width: 550px; /* Ajuste o tamanho da miniatura */
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15), 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-thumbnail img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--color-green-primary);
+        color: var(--color-dark-bg);
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .play-button:hover {
+        background-color: var(--color-green-dark);
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* --- Stats Section --- */
+    .stats-section {
+        background-color: var(--color-dark-surface);
+        padding: 40px 0;
+        border-top: 1px solid var(--color-dark-border);
+        border-bottom: 1px solid var(--color-dark-border);
+        margin-top: 60px;
+    }
+
+    .stats-section .container {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .stat-item {
+        flex: 1;
+        min-width: 180px;
+        padding: 15px;
+    }
+
+    .stat-item h3 {
+        font-size: 2.5rem;
+        color: var(--color-green-primary);
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+
+    .stat-item p {
+        font-size: 0.95rem;
+        color: var(--color-gray-text);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+
+    /* --- Estilos para a animação e para o novo grid de features. --- */
+
+    /* 1. Classes de Animação */
+    .animate-on-scroll {
+        opacity: 0; /* Começa invisível */
+        transform: translateY(40px); /* Começa 40px para baixo */
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.is-visible {
+        opacity: 1; /* Fica visível */
+        transform: translateY(0); /* Volta à posição original */
+    }
+
+    /* 2. Nova Seção (Grid de Features) */
+    .features-grid-section {
+        padding: 80px 0;
+        background-color: var(--color-dark-surface);
+        text-align: center;
+    }
+
+    .features-grid-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .features-grid-section .section-subtitle {
+        font-size: 1.1rem;
+        color: var(--color-gray-text);
+        margin-bottom: 50px;
+        line-height: 1.7;
+    }
+
+    .features-grid {
+        display: grid;
+        /* 3 colunas em desktop, 2 em tablet, 1 em mobile */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .feature-card {
+        background-color: var(--color-dark-bg);
+        border: 1px solid var(--color-dark-border);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: left;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        
+        /* Animação Stagger (delay) */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .feature-card:hover {
+        background-color: #111; /* Um pouco mais claro no hover */
+        border-color: var(--color-green-primary);
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: rgba(0, 255, 136, 0.1);
+        color: var(--color-green-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.25rem;
+        color: var(--color-white);
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        color: var(--color-gray-text);
+        line-height: 1.7;
+    }
+
+    /* 3. Estilos da Animação Stagger (Atraso) */
+    /* Quando a seção ficar visível, anima os cards um por um */
+
+    .is-visible .feature-card {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .is-visible .feature-card:nth-child(1) { transition-delay: 0.1s; }
+    .is-visible .feature-card:nth-child(2) { transition-delay: 0.2s; }
+    .is-visible .feature-card:nth-child(3) { transition-delay: 0.3s; }
+    .is-visible .feature-card:nth-child(4) { transition-delay: 0.4s; }
+    .is-visible .feature-card:nth-child(5) { transition-delay: 0.5s; }
+    .is-visible .feature-card:nth-child(6) { transition-delay: 0.6s; }
+
+
+    /* --- Rodapé --- */
+    footer {
+        background-color: var(--color-dark-bg);
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid var(--color-dark-border);
+        color: var(--color-gray-text);
+        font-size: 0.9rem;
+    }
+
+    /* --- Estilos para Páginas de Autenticação (Login/Registro) --- */
+
+    .auth-page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: var(--color-dark-bg); /* Fundo igual ao restante do site */
+    }
+
+    /* Navbar mais compacta para páginas de auth */
+    .new-navbar.compact {
+        padding: 1rem 0; /* Menos padding */
+    }
+    .new-navbar.compact .new-nav-actions .btn {
+        display: none; /* Esconde os botões Login/Registrar */
+    }
+    .new-navbar.compact .new-nav-actions .btn-flag {
+        margin-left: auto; /* Empurra a bandeira para a direita */
+    }
+
+    .auth-main {
+        flex-grow: 1; /* Faz o main ocupar o espaço restante */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    .auth-card {
+        background-color: var(--color-dark-surface);
+        border: 1px solid var(--color-dark-border);
+        border-radius: 12px;
+        padding: 40px;
+        width: 100%;
+        max-width: 450px; /* Largura máxima do card */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .auth-card h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--color-white);
+    }
+
+    .auth-card .auth-subtitle {
+        font-size: 0.95rem;
+        color: var(--color-gray-text);
+        margin-bottom: 30px;
+    }
+
+    .auth-card .auth-subtitle a {
+        color: var(--color-green-primary);
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .auth-card .auth-subtitle a:hover {
+        color: var(--color-green-dark);
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        text-align: left;
+        position: relative; /* Adicionado para posicionar o ícone */
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--color-gray-text);
+        margin-bottom: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        background-color: var(--color-dark-bg);
+        border: 1px solid var(--color-dark-border);
+        border-radius: 8px;
+        color: var(--color-white);
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input::placeholder {
+        color: #555;
+    }
+
+    .form-group input:focus {
+        border-color: var(--color-green-primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+    }
+
+    /* Adiciona espaço no input para o ícone não sobrepor o texto */
+    .form-group input[name="password"],
+    .form-group input[name="password_confirm"] {
+        padding-right: 45px !important;
+    }
+
+    /* Posição do "olhinho" */
+    .password-toggle-icon {
+        position: absolute;
+        bottom: 14px; /* Alinha verticalmente com o input */
+        right: 15px;
+        cursor: pointer;
+        color: var(--color-gray-text);
+        transition: color 0.3s ease;
+    }
+    .password-toggle-icon:hover {
+        color: var(--color-white);
+    }
+
+    /* --- Estilos da Lista de Requisitos de Senha --- */
+    .password-requirements {
+        text-align: left;
+        font-size: 0.9rem;
+        color: var(--color-gray-text);
+        margin-top: -10px; /* Puxa para mais perto do input */
+        margin-bottom: 20px;
+    }
+    .password-requirements p {
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    .password-requirements ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    .password-requirements li {
+        margin-bottom: 5px;
+        transition: color 0.3s ease;
+        font-size: 0.9rem;
+    }
+    .password-requirements li.valid {
+        color: var(--color-green-primary); /* Verde */
+    }
+    .password-requirements li.invalid {
+        color: #ff6b6b; /* Vermelho */
+    }
+    .password-requirements li i {
+        width: 20px; /* Alinha os ícones */
+        margin-right: 5px;
+    }
+
+    .auth-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        margin-top: -10px; /* Ajuste para espaçamento */
+        margin-bottom: 10px;
+    }
+
+    .auth-options .forgot-password,
+    .auth-options .login-discord-small {
+        color: var(--color-gray-text);
+        transition: color 0.3s ease;
+    }
+
+    .auth-options .forgot-password:hover,
+    .auth-options .login-discord-small:hover {
+        color: var(--color-green-primary);
+    }
+
+    .login-discord-small {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .login-discord-small i {
+        font-size: 1.1rem;
+        color: var(--color-discord);
+    }
+
+    .btn.full-width {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Footer para páginas de autenticação */
+    .auth-page footer {
+        background-color: var(--color-dark-bg);
+        padding: 20px 0; /* Menos padding */
+        border-top: 1px solid var(--color-dark-border);
+        position: relative; /* Para posicionar o link "Começar" */
+    }
+
+    .auth-page footer .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .auth-page footer p {
+        margin-bottom: 0;
+        color: var(--color-gray-text);
+    }
+
+    .footer-bottom-link {
+        position: absolute;
+        right: 20px;
+        color: var(--color-gray-text);
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer-bottom-link:hover {
+        color: var(--color-green-primary);
+    }
+
+
+    /* --- Responsividade --- */
+    @media (max-width: 992px) {
+        .new-navbar .new-nav-links {
+            gap: 1rem;
+        }
+        .new-navbar .new-nav-actions {
+            gap: 0.8rem;
+        }
+        .new-nav-actions .btn {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .hero-section .container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 100%;
+        }
+        .hero-buttons {
+            justify-content: center;
+        }
+        .hero-media {
+            margin-top: 40px;
+            justify-content: center;
+        }
+        .video-thumbnail {
+            max-width: 100%;
+        }
+
+        /* Grid com 2 colunas */
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .feature-text h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .new-navbar .new-nav-links, .new-navbar .new-nav-actions {
+            display: none; /* Esconder para menu hamburger se necessário */
+        }
+        .new-navbar .container {
+            justify-content: center; /* Centraliza logo se links sumirem */
+        }
+        
+        .hero-content h1 {
+            font-size: 2.8rem;
+        }
+        .hero-content p {
+            font-size: 1rem;
+        }
+        .hero-buttons .btn {
+            width: 100%;
+        }
+        .stats-section .stat-item {
+            flex-basis: 45%;
+        }
+
+        /* Grid com 1 coluna */
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .features-grid-section h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-content h1 {
+            font-size: 2.2rem;
+        }
+        .stats-section .stat-item {
+            flex-basis: 90%; /* Uma coluna em telas muito pequenas */
+        }
+
+        /* Responsividade Auth Page */
+        .auth-card {
+            padding: 30px 20px;
+        }
+        .auth-card h2 {
+            font-size: 1.5rem;
+        }
+        .auth-options {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .auth-page footer .container {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-bottom-link {
+            position: static;
+            margin-top: 10px;
+        }
+    }
+
+    /* --- Estilos para Páginas de Verificação --- */
+
+    .auth-icon {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+    }
+
+    .auth-icon.wait-icon {
+        color: var(--color-gray-text);
+    }
+
+    .auth-icon.success-icon {
+        color: var(--color-green-primary);
+    }
+
+    .auth-subtitle-small {
+        font-size: 0.85rem;
+        color: var(--color-gray-text);
+        margin-top: 30px;
+    }
+
+    .auth-subtitle-small a {
+        color: var(--color-green-primary);
+        font-weight: 500;
+    }
+
+    /* --- Estilo para Mensagem de Erro (Login/Registro) --- */
+
+    .auth-error {
+        background-color: rgba(255, 0, 0, 0.1); /* Fundo vermelho-transparente */
+        color: #ff6b6b; /* Texto vermelho claro */
+        border: 1px solid #ff6b6b;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 20px; /* Espaço antes do formulário */
+        text-align: left;
+    }
+
+    /* --- Estilos para Botão Discord e Avatar --- */
+
+    /* Divisor "OU" */
+    .auth-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--color-gray-text);
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin: 25px 0;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid var(--color-dark-border);
+    }
+    .auth-divider:not(:empty)::before {
+        margin-right: 1em;
+    }
+    .auth-divider:not(:empty)::after {
+        margin-left: 1em;
+    }
+
+    /* Novo Botão Discord */
+    .btn-discord {
+        background-color: #5865F2;
+        color: var(--color-white);
+        font-weight: 600;
+    }
+    .btn-discord:hover {
+        background-color: #4a57d3;
+    }
+
+    /* Avatar do Usuário na Navbar */
+    .nav-user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .nav-user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid var(--color-dark-border);
+    }
+    .nav-user-info span {
+        color: var(--color-gray-text);
+        font-weight: 500;
+    }
+
+    /* Ajuste para a navbar compacta mostrar a bandeira */
+    .new-navbar.compact .new-nav-actions .btn-flag {
+        display: flex;
+        margin-left: auto; /* Joga a bandeira para a direita */
+    }
+
+    /* --- Estilos para "Esqueceu a senha" e "Já tem conta" --- */
+
+    .auth-switch-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 0.95rem;
+        color: var(--color-gray-text);
+    }
+
+    .auth-switch-link a {
+        color: var(--color-green-primary);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .auth-switch-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Mensagem de Sucesso (para reset de senha, etc.) */
+    .auth-success {
+        background-color: rgba(0, 255, 136, 0.1);
+        color: var(--color-green-primary);
+        border: 1px solid var(--color-green-primary);
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    /* --- Estilos para o Fluxo de Reset de Senha (Múltiplas Etapas) --- */
+
+    .step-container {
+        position: relative;
+        overflow: hidden;
+        height: auto; /* O JS vai ajustar a altura */
+        transition: height 0.4s ease-in-out;
+    }
+
+    .reset-step {
+        /* Todas as etapas estão empilhadas */
+        width: 100%;
+        /* Animação de fade e slide */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(30px);
+        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s;
+        
+        /* Remove a etapa do fluxo */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .reset-step.active {
+        /* A etapa ativa fica visível */
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        
+        /* Traz a etapa de volta ao fluxo */
+        position: relative; 
+    }
+
+    /* Esconde a etapa que está saindo (para a esquerda) */
+    .reset-step.exiting {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-30px);
+        position: absolute;
+    }
+
+    /* Estilo do botão de loading */
+    .btn-loading {
+        position: relative;
+        color: transparent !important; /* Esconde o texto */
+        cursor: not-allowed;
+    }
+
+    .btn-loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -10px; /* Metade da altura */
+        margin-left: -10px; /* Metade da largura */
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(10, 10, 11, 0.5); /* Cor do texto do botão */
+        border-top-color: var(--color-dark-bg); /* Cor do texto do botão */
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Link "Voltar ao Login" */
+    .auth-back-link {
+        display: inline-block;
+        margin-top: 25px;
+        font-size: 0.95rem;
+        color: var(--color-gray-text);
+    }
+    .auth-back-link:hover {
+        color: var(--color-white);
+    }
+
+/* ... (estilos existentes) ... */
+
+/* Avatar do Usuário na Navbar (Atualizado) */
+.nav-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--color-dark-border);
+}
+
+/* (NOVO) Avatar Padrão (ícone) */
+.default-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--color-dark-border);
+    background-color: var(--color-dark-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-text);
+}
+
+/* --- (NOVOS) Estilos do Menu Dropdown do Usuário --- */
+.nav-user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.nav-user-menu:hover {
+    background-color: var(--color-dark-surface);
+}
+
+.nav-user-menu span {
+    color: var(--color-gray-text);
+    font-weight: 500;
+}
+.nav-user-menu:hover span {
+    color: var(--color-white);
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    color: var(--color-gray-text);
+    transition: transform 0.2s ease;
+}
+.nav-user-menu:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-user-dropdown {
+    position: absolute;
+    top: 110%; /* Aparece abaixo do menu */
+    right: 0;
+    width: 200px;
+    background-color: var(--color-dark-surface);
+    border: 1px solid var(--color-dark-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    padding: 8px;
+    z-index: 1001;
+    
+    /* Escondido por padrão */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.nav-user-menu:hover .nav-user-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.dropdown-item i {
+    width: 18px; /* Alinha os ícones */
+}
+.dropdown-item:hover {
+    background-color: var(--color-dark-bg);
+    color: var(--color-white);
+}
+.dropdown-item.logout:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff6b6b; /* Vermelho */
+}
+/* --- Fim dos Estilos do Dropdown --- */
+
+/* =========================================== */
+/* === NOVOS ESTILOS - MENU MOBILE E GERAL === */
+/* =========================================== */
+
+/* --- Botão Hamburger --- */
+.hamburger-menu {
+    display: none; /* Escondido no Desktop */
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001; /* Fica acima de tudo, exceto o menu */
+    position: absolute; /* Posição fixa no canto */
+    top: 1.2rem;
+    right: 20px;
+}
+
+/* --- Painel do Menu Mobile --- */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Começa fora da tela */
+    width: 300px;
+    max-width: 90%;
+    height: 100vh;
+    background-color: var(--color-dark-surface);
+    border-left: 1px solid var(--color-dark-border);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav.is-open {
+    right: 0; /* Entra na tela */
+}
+
+/* Header do menu (Logo + Botão X) */
+.mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 20px;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+.mobile-nav-header .logo-img {
+    height: 35px;
+}
+.mobile-nav-close {
+    background: none;
+    border: none;
+    color: var(--color-gray-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Links dentro do menu */
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+.mobile-nav-links .nav-item {
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    color: var(--color-gray-text);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.mobile-nav-links .nav-item:hover {
+    background-color: var(--color-dark-bg);
+    color: var(--color-green-primary);
+}
+
+/* Botões de Auth (Login/Avatar) no menu */
+.mobile-nav-actions {
+    margin-top: auto; /* Empurra para o final */
+    padding: 20px;
+    border-top: 1px solid var(--color-dark-border);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* Estilo específico para o Avatar no menu mobile */
+.mobile-nav-actions .nav-user-menu {
+    padding: 0;
+}
+.mobile-nav-actions .nav-user-menu:hover {
+    background: none;
+}
+/* Faz o dropdown aparecer para CIMA */
+.mobile-nav-actions .nav-user-dropdown {
+    top: auto;
+    bottom: 110%; 
+    right: 0;
+    width: 100%;
+    transform: translateY(-10px);
+}
+.mobile-nav-actions .nav-user-menu:hover .nav-user-dropdown {
+    transform: translateY(0);
+}
+
+
+/* --- CORREÇÃO: Página de Produto (produto.html) --- */
+/* O arquivo `produto.html` chama um `product-page.css` 
+  que não foi fornecido. Vou adicionar os estilos responsivos essenciais aqui.
+*/
+.product-layout {
+    /* No desktop, é "grid" (definido pelo JS) */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* 2 colunas no desktop */
+    gap: 40px;
+}
+
+
+/* --- Media Queries (Onde a mágica acontece) --- */
+
+@media (max-width: 992px) {
+    /* Ajusta o layout da página de produto em tablets */
+    .product-layout {
+        grid-template-columns: 1fr; /* 1 coluna em tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    /* --- Ajuste da Navbar (style.css @media) --- */
+    .new-navbar .container {
+        /* O logo fica à esquerda, hamburger à direita */
+        justify-content: space-between; 
+    }
+    .new-navbar .new-nav-links,
+    .new-navbar .new-nav-actions {
+        display: none; /* Esconde os links desktop */
+    }
+
+    .hamburger-menu {
+        display: block; /* Mostra o hamburger */
+    }
+    
+    /* Esconde o hamburger nas páginas de login/registro */
+    .new-navbar.compact .hamburger-menu {
+        display: none;
+    }
+
+    /* --- Ajuste da Página de Produto (produto.html) --- */
+    .product-layout {
+        grid-template-columns: 1fr; /* Garante 1 coluna */
+    }
+    .product-gallery {
+        /* Faz a galeria ser menor no mobile */
+        max-height: 400px;
+    }
+}

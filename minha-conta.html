@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invict - Minha Conta</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/minha-conta.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header class="new-navbar">
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/logo.png" alt="Logo da Loja" class="logo-img"></a></div>
+            <nav class="new-nav-links">
+                <a href="/" class="nav-item" data-key="nav_home">Inicial</a>
+                <a href="/loja.html" class="nav-item" data-key="nav_store">Loja</a>
+                <a href="/faq.html" class="nav-item" data-key="nav_faq">FAQ</a>
+            </nav>
+            <div class="new-nav-actions" id="nav-auth-container">
+                </div>
+            </div>
+
+        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <img src="/logo.png" alt="Logo da Loja" class="logo-img">
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-links">
+                </nav>
+            
+            <div class="mobile-nav-actions" id="mobile-nav-auth-container">
+                </div>
+        </div>
+    </header>
+
+    <main class="account-main">
+        <div class="container">
+            <h1 data-key="account_title">Minha Conta</h1>
+            
+            <div class="account-layout">
+                <div class="account-column-main">
+                    
+                    <div class="account-card">
+                        <h3 class="card-title" data-key="account_info_title">Informações da Conta</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label data-key="account_username">Nome de Usuário</label>
+                                <span id="info-username">...</span>
+                            </div>
+                            <div class="info-item">
+                                <label data-key="account_email">Email</label>
+                                <span id="info-email">...</span>
+                            </div>
+                            <div class="info-item">
+                                <label data-key="account_member_since">Membro desde</label>
+                                <span id="info-created-at">...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-card">
+                        <h3 class="card-title" data-key="account_redeem_title">Resgatar Chave</h3>
+                        <p class="card-subtitle" data-key="account_redeem_subtitle">Cole a chave do produto que você comprou para ativá-lo em sua conta.</p>
+                        
+                        <form id="redeem-form" class="redeem-form">
+                            <input type="text" id="key-input" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required>
+                            <button type="submit" class="btn btn-primary" id="redeem-button">
+                                <span class="btn-text" data-key="account_redeem_btn">Resgatar</span>
+                                <div class="loader" style="display: none;"></div>
+                            </button>
+                        </form>
+                        <p id="redeem-message" class="redeem-message"></p>
+                    </div>
+                </div>
+
+                <div class="account-column-side">
+                    <div class="account-card">
+                        <h3 class="card-title" data-key="account_subs_title">Minhas Assinaturas</h3>
+                        
+                        <div id="subscriptions-list">
+                            <div id="subs-loading" class="subs-placeholder">
+                                <div class="loader"></div>
+                                <span data-key="account_subs_loading">Carregando assinaturas...</span>
+                            </div>
+                            <div id="subs-empty" class="subs-placeholder" style="display: none;">
+                                <i class="fas fa-box-open"></i>
+                                <span data-key="account_subs_empty">Você não possui assinaturas ativas.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-key="footer_copy">&copy; 2025 Invict. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/translations.js"></script>
+    <script src="/script.js"></script> 
+    <script src="/minha-conta.js"></script> </body>
+</html>

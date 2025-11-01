@@ -1,0 +1,130 @@
+/* Reutiliza o corpo do admin */
+/* .admin-body já está em admin.css */
+
+/* Layout específico do painel de afiliado */
+.affiliate-layout {
+    display: flex;
+    min-height: calc(100vh - 70px); /* 100% da altura menos o navbar */
+}
+
+.affiliate-sidebar {
+    width: 250px;
+    background-color: var(--color-dark-surface);
+    border-right: 1px solid var(--color-dark-border);
+    height: calc(100vh - 70px); /* Trava a altura */
+    position: sticky;
+    top: 70px; /* Gruda abaixo do navbar */
+    display: flex;
+    flex-direction: column;
+}
+
+.affiliate-sidebar .sidebar-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+.affiliate-sidebar .sidebar-header h3 {
+    font-size: 1.3rem;
+    color: var(--color-white);
+    margin: 0;
+}
+
+/* Reutiliza a navegação do admin */
+/* .admin-nav já está em admin.css */
+
+
+.affiliate-main-content {
+    flex: 1;
+    background-color: var(--color-dark-bg);
+    padding: 2rem;
+}
+
+/* Sistema de Abas */
+.affiliate-tab-content {
+    display: none;
+}
+.affiliate-tab-content.active {
+    display: block;
+}
+
+/* Card de Saque */
+#withdrawal-card {
+    background: linear-gradient(145deg, var(--color-dark-surface), #2a2c2f);
+}
+.withdrawal-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.balance-info {
+    font-size: 1.2rem;
+    color: var(--color-gray-text);
+}
+.balance-info strong {
+    font-size: 2rem;
+    color: var(--color-green-primary);
+    margin-left: 10px;
+}
+.withdrawal-note {
+    font-size: 0.9rem;
+    color: var(--color-gray-text);
+}
+#btn-request-withdrawal:disabled {
+    background-color: var(--color-dark-border);
+    color: var(--color-gray-text);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Tabela de Saques */
+.status-pending { color: #f0b90b; }
+.status-approved { color: var(--color-green-primary); }
+.status-rejected { color: #ff6b6b; }
+
+/* Modal de Saque */
+.modal-body h4 {
+    color: var(--color-green-primary);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.modal-body ul {
+    list-style: none;
+    padding-left: 0;
+}
+.modal-body li {
+    color: var(--color-gray-text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.modal-body li i {
+    color: var(--color-green-primary);
+    width: 20px;
+    text-align: center;
+}
+#btn-confirm-withdrawal:disabled {
+    background-color: var(--color-dark-border);
+    color: var(--color-gray-text);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Animação de Scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ... (estilos existentes) ... */
+
+.status-pending { color: #f0b90b; }
+.status-approved { color: #0b72e7; } /* Azul para 'Aprovado' */
+.status-completed { color: var(--color-green-primary); }
+.status-rejected { color: #ff6b6b; }
